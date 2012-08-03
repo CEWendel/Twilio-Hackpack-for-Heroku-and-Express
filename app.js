@@ -1,8 +1,6 @@
 express = require('express');
 
 app = express.createServer();
-//app.use(express.bodyParser());
-//app.use(express.cookieParser());
 
 
 config = {};
@@ -27,8 +25,7 @@ app.get("/", function(req, res) {
 });
 
 app.post("/incoming/sms", function(req, res) {
-  logger.debug("Received an SMS.");
-  logger.trace(sys.inspect(req.body));
+  console.log("incoming sms!");
   res.send("<Response><Sms>Thanks!</Sms></Response>");
 });
 
