@@ -15,16 +15,17 @@ var TwilioClient = require('./node-twilio').Client,
     "express" : app,
     "port" : process.env.PORT || config.port
   });
-/*
-app.get("/" + config.client.name, function(req, res) {
+  
+app.get("/", function(req, res) {
   var out = "hello", phone = client.getPhoneNumber('+14157234224');
   phone.setup(function() {
     phone.sendSms("+17033891424", out, {}, function(text) {
-      logger.debug("Text object: " + sys.inspect(text))
+      console.log("Shit");
+      res.send("done");
     });
   });
 });
-*/
+
 app.post("/incoming/sms", function(req, res) {
   logger.debug("Received an SMS.");
   logger.trace(sys.inspect(req.body));
