@@ -1,8 +1,8 @@
 express = require('express');
 
 app = express.createServer();
-app.use(express.bodyParser());
-app.use(express.cookieParser());
+//app.use(express.bodyParser());
+//app.use(express.cookieParser());
 
 
 config = {};
