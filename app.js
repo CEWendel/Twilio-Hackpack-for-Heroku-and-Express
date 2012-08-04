@@ -25,7 +25,7 @@ app.get("/", function(req, res) {
   	phone.makeCall('+17033891424', null, function(call){
   		call.on('answered', function(req, res){
   			console.log("Call answered");
-  			res.send("test");
+  			res.send("<Response><Say>Yes!!!</Say></Response>");
   		});
   		call.on('ended', function(req, resp){
   			console.log("call ended");
