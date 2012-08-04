@@ -24,11 +24,11 @@ app.get("/", function(req, res) {
     //});
   	phone.makeCall('+17033891424', null, function(call){
   		call.on('answered', function(request, response){
-  			response.send("<Response><Say>Yes!!!</Say></Response>");
+  			response.append("<Response><Say>Yes</Say></Response>");
+  			response.send();
   		});
   		call.on('ended', function(req, resp){
   			console.log("call ended");
-  			//
   	 	});
   	});
   });
