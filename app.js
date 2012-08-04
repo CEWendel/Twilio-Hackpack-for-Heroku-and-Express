@@ -22,6 +22,7 @@ app.get("/", function(req, res) {
     //  res.send("done");
     //});
   	phone.makeCall('+17033891424', null, function(call){
+  		res.send("Made call");
   		call.on('answered', function(request, response){
   			response.append(new Twiml.Say("Hello"));
   			response.send();
@@ -32,6 +33,10 @@ app.get("/", function(req, res) {
   	});
   });
 });
+
+app.get("/sms", function(req,res){
+	res.send("SMS");
+});	
 
 app.post("/incoming/sms", function(req, res) {
   console.log("incoming sms!");
