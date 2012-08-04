@@ -23,11 +23,13 @@ app.get("/", function(req, res) {
     //  res.send("done");
     //});
   	phone.makeCall('+17033891424', null, function(call){
-  		call.on('answered', function(request, response){
+  		call.on('answered', function(req, res){
   			console.log("Call answered");
+  			res.send("test");
   		});
-  		call.on('ended', function(request, response){
+  		call.on('ended', function(req, resp){
   			console.log("call ended");
+  			res.send("<Response><Say>This</Say<M")
   	 	});
   	});
   });
