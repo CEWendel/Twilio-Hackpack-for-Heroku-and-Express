@@ -14,8 +14,9 @@ var TwilioClient = require('node-twilio').Client,
     "express" : app
   });
 
+var out = "hello", phone = client.getPhoneNumber('+14157234224');
+
 app.get("/", function(req, res) {
-  var out = "hello", phone = client.getPhoneNumber('+14157234224');
   phone.setup(function() {
     //phone.sendSms("+17033891424", out, {}, function(text) {
     //  console.log("Shit");
@@ -35,7 +36,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/sms", function(req,res){
-	res.send("SMS");
+	res.send("Hello");
 });	
 
 app.post("/incoming/sms", function(req, res) {
