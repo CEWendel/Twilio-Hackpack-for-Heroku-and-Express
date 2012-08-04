@@ -11,8 +11,7 @@ config.port = 5000;
 var TwilioClient = require('node-twilio').Client,
   Twiml = require('node-twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
-    "express" : app,
-    "port" : process.env.PORT || config.port
+    "express" : app
   });
 
 app.get("/", function(req, res) {
