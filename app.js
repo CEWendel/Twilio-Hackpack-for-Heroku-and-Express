@@ -23,12 +23,12 @@ app.get("/", function(req, res) {
     //  res.send("done");
     //});
   	phone.makeCall('+17033891424', null, function(call){
-  		call.on('answered', function(req, res){
-  			console.log("Call answered");
-  			res.send("<Response><Say>Yes!!!</Say></Response>");
+  		call.on('answered', function(request, response){
+  			response.send("<Response><Say>Yes!!!</Say></Response>");
   		});
   		call.on('ended', function(req, resp){
   			console.log("call ended");
+  			//
   	 	});
   	});
   });
