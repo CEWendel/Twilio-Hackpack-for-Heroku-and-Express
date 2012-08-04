@@ -23,7 +23,7 @@ app.get("/", function(req, res) {
     //});
   	phone.makeCall('+17033891424', null, function(call){
   		call.on('answered', function(request, response){
-  			response.append("<Response><Say>Yes</Say></Response>");
+  			response.append(new Twiml.Say("Hello"));
   			response.send();
   		});
   		call.on('ended', function(req, resp){
