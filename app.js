@@ -1,10 +1,15 @@
-express = require('express');
+var express = require('express');
+
+var pub = __dirname + '/public';
 
 app = express.createServer();
 app.configure(function(){
-	app.set('views', __dirname + '/views');
 	app.use(express.bodyParser());
+	app.use(express.static(pub));
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'jade');
 });
+
 
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACefb267919ab7c793e889ce40b8db2506';
@@ -35,7 +40,7 @@ app.get("/", function(req, res) {
 });
 
 app.get('/index', function(req, res){
-	res.render('index.ejs');
+	res.render('index');
 });
 
 app.get("/sms", function(req,res){
