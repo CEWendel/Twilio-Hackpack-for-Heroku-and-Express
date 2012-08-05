@@ -1,7 +1,10 @@
 express = require('express');
 
 app = express.createServer();
-
+app.configure(function(){
+	app.set('views', __dirname + '/views');
+	app.use(express.bodyParser());
+});
 
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACefb267919ab7c793e889ce40b8db2506';
@@ -18,11 +21,7 @@ var out = "hello", phone = client.getPhoneNumber('+14157234224');
 
 app.get("/", function(req, res) {
   phone.setup(function() {
-    //phone.sendSms("+17033891424", out, {}, function(text) {
-    //  console.log("Shit");
-    //  res.send("done");
-    //});
-  	phone.makeCall('+17033891424', null, function(call){
+	phone.makeCall('+17033891424', null, function(call){
   		res.send("Made call");
   		call.on('answered', function(request, response){
   			response.append(new Twiml.Say("Hello"));
@@ -35,8 +34,14 @@ app.get("/", function(req, res) {
   });
 });
 
+app.get('/index', function(req, res){
+	res.render('index.ejs');
+});
+
 app.get("/sms", function(req,res){
-	res.send("Hello");
+	phone.sendSms("+17033891424", "Hello", {}, function(text){
+		res.send("Text sent");
+	})
 });	
 
 app.post("/incoming/sms", function(req, res) {
