@@ -1,5 +1,4 @@
 var express = require('express');
-
 var pub = __dirname + '/public';
 
 app = express.createServer();
