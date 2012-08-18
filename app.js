@@ -1,5 +1,6 @@
-var express = require('express');
-var pub = __dirname + '/public';
+var express = require('express')
+	, router = require('./router')
+	, pub = __dirname + '/public';
 
 app = express.createServer();
 app.configure(function(){
