@@ -295,9 +295,3 @@ if(typeof program.auth_token != 'undefined'){
 }
 
 configure.start();
-
-
-
-
-
-
