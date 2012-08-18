@@ -109,10 +109,9 @@ function Configure(){
 		var i = 0;
 		
 		function askToBuyPhoneNumber(question, callback){
-			console.log('Ask to buy phone number called');
 			i++;
-			//process.stdin.pausee();
-			//process.stdin.setEncoding('utf8');
+			process.stdin.resume();
+			process.stdin.setEncoding('utf8');
 			console.log(question);
 			program.prompt('choice: ', function(choice){
 				var output = choice.toLowerCase();
