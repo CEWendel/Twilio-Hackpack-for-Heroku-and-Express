@@ -46,7 +46,7 @@ function Configure(){
 		}
 
 		console.log('Creating Twilio client...');
-		TwilioClient = require('node-twilio').Client;
+		TwilioClient = require('heroku-twilio').Client;
 		
 		try{
 			client = new TwilioClient(account_sid, auth_token, host_);
