@@ -5,16 +5,15 @@ var exec = require('child_process').exec;
 program
   .version('Twilio Hackpack for Heorku and Express v0.1')
   .option('-n, --new', 'We need to set up a new AppSID and Number')
-  .option('-a, --app [appSid]', 'Use this Twilio App SID')
-  .option('-c, --caller', 'Use this Twilio Number')
-  //.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
+  .option('-a, --app_sid [appSid]', 'Use this Twilio App SID')
+  .option('-c, --caller_id [callerID]', 'Use this Twilio Number')
   .option('-d, --domain [url]', 'Use this custom domain')
   .option('-as, --account_sid [accSid]', 'Use this Twilio Account SID')
   .option('-at, --auth_token [auth]', 'Use this Twilio Auth Token')
   .option('-v, --voice [url]', 'Use this Voice Url')
   .option('-s, --sms [url]', 'Use this SMS Url')
   .option('-f, --friendly [name]', 'Use this friendly name [HackPack for Heroku and Express]', 
-  	'HackPack for Heroku and Express')
+  	'Hackpack for Heroku and Express')
   .parse(process.argv);
 
 function Configure(){
@@ -30,17 +29,17 @@ function Configure(){
 	this.start = function(){
 		console.log('Configuring your Twilio hackpack...');
 		console.info('Checking if your credentials are set...');
-		if(typeof account_sid === 'undefined'){
+		if(!account_sid){
 			console.error("ACCOUNT_SID is not set");
 			process.exit();
 		}
-		if(typeof auth_token === 'undefined'){
+		if(!auth_token){
 			console.error("AUTH_TOKEN is not set");
 			process.exit();
 		}
 
 		console.log('Checking for host name...');
-		if(typeof host_ === 'undefined'){
+		if(!host_){
 			console.log('Setting hostname...');
 			host_ = this.getHerokuHostName();
 			console.log('Hostname is now ' + host_);
@@ -49,7 +48,12 @@ function Configure(){
 		console.log('Creating Twilio client...');
 		TwilioClient = require('node-twilio').Client;
 		
-		client = new TwilioClient(account_sid, auth_token, host_);
+		try{
+			client = new TwilioClient(account_sid, auth_token, host_);
+		}catch(e){
+			console.error('Could not create Twilio Rest Client, exception: ' + e);
+			process.exit();
+		}
 
 		if(voice_url.indexOf('http://') == -1 ){
 			voice_url = host_ + voice_url;
@@ -90,7 +94,7 @@ function Configure(){
 
 	this.printOutLocalEnvironmentVariableCommands = function(){
 		console.log('Please copy and paste these into your shell to test locally: \n' + 
-					'export TWILIO_ACCOUNT_SID= '+ process.env.TWILIO_ACCOUNT_SID + '\n' + 
+					'export TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + '\n' + 
 					'export TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN + '\n' +
 					'export TWILIO_APP_SID=' + app_sid + '\n' +
 					'export TWILIO_CALLER_ID=' + phone_number + '\n');
@@ -104,7 +108,6 @@ function Configure(){
 	};
 
 	this.purchasePhoneNumber = function(purchasedCallback){
-		console.log('Purchase Phone number called');
 		var number;
 		var i = 0;
 		
@@ -115,7 +118,6 @@ function Configure(){
 			console.log(question);
 			program.prompt('choice: ', function(choice){
 				var output = choice.toLowerCase();
-				console.log('output was: ' + output);
 				if(output=='y'){
 					callback('y');
 				}else if(output=='n' || i >= 3){
@@ -134,10 +136,15 @@ function Configure(){
 					VoiceUrl: voice_url,
 					SmsUrl: sms_url
 				}
-				client.purchaseIncomingNumber(params, function(body){
-					number = body;
-					purchasedCallback(number);
-				});
+				try{
+					client.purchaseIncomingNumber(params, function(body){
+						number = body;
+						purchasedCallback(number);
+					});
+				}catch(e){
+					console.error('Purchasing incoming number failed. Exception: ' + e);
+					process.exit();
+				}
 			}else{
 				console.log('A Caller_Id must be specified');
 				process.exit();
@@ -148,13 +155,23 @@ function Configure(){
 	this.configureCallerId = function(callback){
 		if(!phone_number){
 			this.purchasePhoneNumber(function(number){
-				phone_number = number.phone_number;
-				callback(number);
+				if(number){
+					phone_number = number.phone_number;
+					callback(number);
+				}else{
+					console.error('A phone number could not be retrieved. Are you sure you have a caller_id?');
+					process.exit();
+				}
 			});
 		}else{
 			this.retrievePhoneNumber(phone_number, function(number){
-				phone_number = number.phone_number;
-				callback(number);
+				if(number){
+					phone_number = number.phone_number;			
+					callback(number);
+				}else{
+					console.error('A phone number could not be retrieved. Are you sure you have a caller_id?');
+					process.exit();
+				}
 			});
 		}
 	};
@@ -170,7 +187,7 @@ function Configure(){
 				callback(number);
 			});
 		}catch (e) {
-			console.error('Could not retrieve phone number');
+			console.error('Could not retrieve incoming numbers for account. Exception: ' + e);
 			process.exit();
 		}	
 	};
@@ -203,10 +220,15 @@ function Configure(){
 					VoiceUrl: voice_url,
 					SmsUrl: sms_url
 				}
-				client.createApplication(params, function(data){
-					console.log('Created the application');
-					createdCallback(data);
-				});
+				try{
+					client.createApplication(params, function(data){
+						console.log('Created the application');
+						createdCallback(data);
+					});
+				}catch(e){
+					console.error('Could not create the application. Exception: ' + e);
+					process.exit();
+				}
 			}else{
 				console.error('Your APP_SID must be configured');
 				process.exit();
@@ -218,13 +240,23 @@ function Configure(){
 		if(!app_sid){
 			console.log('Creating new TwiML app...');
 			this.createNewTwimlApp(function(app){
-				app_sid = app.sid;
-				callback(app);
+				if(app){
+					app_sid = app.sid;
+					callback(app);
+				}else{
+					console.error('Failed creating a new TwiML app');
+					process.exit();
+				}
 			});
 		}else{
 			this.setAppRequestUrls(app_sid, function(app){
-				app_sid = app.sid;
-				callback(app)
+				if(app){
+					app_sid = app.sid;
+					callback(app)
+				}else{
+					console.error('Failed updating app urls');
+					process.exit();
+				}
 			});
 		}
 	};
@@ -264,7 +296,7 @@ function Configure(){
 		}
 
 		// Return Heroku host name.
-		if(typeof subdomain != 'undefined'){
+		if(subdomain){
 			var host = 'http://' + subdomain + '.herokuapp.com'
 			console.info('Full host is ' + host);
 			return host;
@@ -273,8 +305,8 @@ function Configure(){
 		}
 	};
 
-	this.setAccountSid = function(acc_sid){
-		account_sid = acc_sid;
+	this.setAccountSid = function(accSid){
+		account_sid = accSid;
 		process.env.TWILIO_ACCOUNT_SID = account_sid;
 	};
 
@@ -282,16 +314,64 @@ function Configure(){
 		auth_token = auth;
 		process.env.TWILIO_AUTH_TOKEN = auth_token;
 	};
+
+	this.setAppSid = function(appSid){
+		app_sid = appSid
+		process.env.TWILIO_APP_SID= app_sid;
+	};
+
+	this.setPhoneNumber = function(callerId){
+		console.log('setPhoneNumber called'+ callerId);
+		phone_number = callerId;
+		process.env.TWILIO_CALLER_ID = phone_number;
+	};
+
+	this.setVoiceUrl = function(voiceUrl){
+		voice_url = voiceUrl;
+	};
+
+	this.setSmsUrl = function(smsUrl){
+		sms_url = smsUrl;
+	};
+
+	this.setDomain = function(domain){
+		host_ = domain;
+	}
+}
+
+var logError = function(error){
+	console.error(error);
+	process.exit();
 }
 
 var configure = new Configure();
 
-if(typeof program.account_sid != 'undefined'){
+if(program.account_sid){
 	configure.setAccountSid(program.account_sid);
 }
 
-if(typeof program.auth_token != 'undefined'){
+if(program.auth_token){
 	configure.setAuthToken(program.auth_token);
+}
+
+if(program.app_sid){ 
+	configure.setAppSid(program.app_sid);
+}
+
+if(program.caller_id){ 
+	configure.setPhoneNumber(program.caller_id);
+}
+
+if(program.voice){
+	configure.setVoiceUrl(program.voice);
+}
+
+if(program.sms){
+	configure.setSmsUrl(program.sms);
+}
+
+if(program.domain){
+	configure.setDomain(program.domain);
 }
 
 configure.start();
