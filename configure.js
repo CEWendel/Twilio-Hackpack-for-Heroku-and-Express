@@ -27,7 +27,7 @@ function Configure(){
 	var client;
 
 	this.start = function(){
-		console.log('Configuring your Twilio hackpack...');
+		console.info('Configuring your Twilio hackpack...');
 		console.info('Checking if your credentials are set...');
 		if(!account_sid){
 			console.error("ACCOUNT_SID is not set");
