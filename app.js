@@ -65,9 +65,10 @@ app.post("/voice", function(req,res){
     });
     */
     phone.on('incomingCall', function(request, response){
-      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-      res.send();
+      response.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
+      response.send();
     });
+    res.send("k");
   });
 });
 
