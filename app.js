@@ -15,8 +15,9 @@ config.TWILIO_ACCOUNT_SID = 'ACefb267919ab7c793e889ce40b8db2506';
 config.TWILIO_AUTH_TOKEN = '6cb0a97591eaf94ca237572fe4472458';
 config.HOST = 'twiliohackpacknode.herokuapp.com';
 config.port = 5000;
-var TwilioClient = require('node-twilio').Client,
-  Twiml = require('node-twilio').Twiml,
+
+var TwilioClient = require('heroku-twilio').Client,
+  Twiml = require('heroku-twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
