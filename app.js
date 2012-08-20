@@ -11,8 +11,8 @@ app.configure(function(){
 
 
 config = {};
-config.TWILIO_ACCOUNT_SID = 'ACefb267919ab7c793e889ce40b8db2506';
-config.TWILIO_AUTH_TOKEN = '6cb0a97591eaf94ca237572fe4472458';
+config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
+config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
 config.HOST = 'twiliohackpacknodefinal.herokuapp.com';
 config.port = 5000;
 
@@ -21,8 +21,8 @@ var TwilioClient = require('heroku-twilio').Client,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
-/*
-var out = "hello", phone = client.getPhoneNumber('+14157234224');
+
+var out = "hello", phone = client.getPhoneNumber('+17032910126');
 
 app.get("/", function(req, res) {
   phone.setup(function() {
@@ -38,7 +38,7 @@ app.get("/", function(req, res) {
   	});
   });
 });
-*/
+
 app.get('/index', function(req, res){
 	res.render('index');
 });
