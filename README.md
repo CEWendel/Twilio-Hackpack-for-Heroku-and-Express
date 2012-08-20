@@ -5,7 +5,7 @@ A Twilio hackpack to get you started fast building Twilio apps on Express with N
 Port of [Rob Spectre's Hackpack for Flask](http://github.com/robspectre/Twilio-Hackpack-for-Heroku-and-Flask) and [Oscar Sanchez's Hackpack for Sinatra](http://github.com/labcoder/Twilio-Hackpack-for-Heroku-and-Sinatra).
 
 ##Features:
-* Heroku Friendly - Uses the [heroku-twilio](http://github.com/cewendel/heroku-twilio) package so your app can successfully make calls! 
+* Heroku Friendly - Uses the [heroku-twilio](http://github.com/cewendel/heroku-twilio) package so your app can successfully make calls on Heroku!
 * Twilio Client - Comes ready to go with [Twilio Client](htt://twilio.com/client)
 * Configuration - simply run `node configure.js --account_sid ACxxx --auth_token yyyyy`
 to easily set up your app and environments
