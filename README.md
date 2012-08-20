@@ -48,6 +48,7 @@ Step-by-step on how to deploy, configure, and develop using this app
 
 <pre>node configure.js --account_sid ACXXXXX --auth_token yyyyy</pre>
 * for local development, copy and paste the commands the configure script provides to set your local enviroment variables:
+
 <pre>
 export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
 export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
