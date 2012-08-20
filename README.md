@@ -16,15 +16,18 @@ to easily set up your app and environments
 This hackpack comes with two ready-made Express endpoints in app.js:
 
 Voice endpoint:
-	app.get('/voice', function(req,res){
-		var response = twiml.Response();
-		response.play('');
-		res.send(response);
-	});
-
+'''javascript
+app.get('/voice', function(req,res){
+	var response = twiml.Response();
+	response.play('');
+	res.send(response);
+});
+'''
 Sms endpoint:
-	app.get('/sms', function(req,res){
-		var response = twiml.Response();
-		response.sms('');
-		res.send(response);
-	});
+'''javascript
+app.get('/sms', function(req,res){
+	var response = twiml.Response();
+	response.sms('');
+	res.send(response);
+});
+'''
