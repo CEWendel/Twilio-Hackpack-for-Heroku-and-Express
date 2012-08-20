@@ -52,22 +52,22 @@ app.get("/sms", function(req,res){
 
 app.get("/voice", function(req,res){
   phone.setup(function() {
-  phone.makeCall('+17033891424', null, function(call){
-      res.send("Made call");
-      call.on('answered', function(request, response){
-        response.append(new Twiml.Say("Hello"));
-        response.send();
+    phone.makeCall('+17033891424', null, function(call){
+        res.send("Made call");
+        call.on('answered', function(request, response){
+         response.append(new Twiml.Say("Hello"));
+         response.send();
+        });
+        call.on('ended', function(req, resp){
+          console.log("call ended");
       });
-      call.on('ended', function(req, resp){
-        console.log("call ended");
+    });
+
+    phone.on('incomingCall', function(request, response){
+      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
+      res.send();
     });
   });
-
-  phone.on('incomingCall', function(request, response){
-    res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-    res.send();
-  });
-
 });
 
 app.post("/incoming/sms", function(req, res) {
