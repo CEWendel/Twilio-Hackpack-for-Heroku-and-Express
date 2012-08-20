@@ -13,7 +13,7 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACefb267919ab7c793e889ce40b8db2506';
 config.TWILIO_AUTH_TOKEN = '6cb0a97591eaf94ca237572fe4472458';
-config.HOST = 'twiliohackpacknode.herokuapp.com';
+config.HOST = 'twiliohackpacknodefinal.herokuapp.com';
 config.port = 5000;
 
 var TwilioClient = require('heroku-twilio').Client,
@@ -52,7 +52,7 @@ app.get("/sms", function(req,res){
 app.get("/voice", function(req,res){
   //res.append(new Twiml.say('Hey thanks for calling!'));
   //res.send();
-  res.send('Hellooo');
+  res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID);
 });
 
 app.post("/incoming/sms", function(req, res) {
