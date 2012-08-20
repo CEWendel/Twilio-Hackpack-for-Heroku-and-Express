@@ -52,7 +52,7 @@ Step-by-step on how to deploy, configure, and develop using this app
 <pre>
 export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
 export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
-export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz		
+export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz
 export TWILIO_CALLER_ID=+15556667777
 </pre>
 * Launch webserver: `foreman start`
