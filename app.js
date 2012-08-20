@@ -40,10 +40,9 @@ phone.setup(function() {
 });
 
 app.get("/", function(req, res) {
-  /*
-  phone.setup(function() {
+  
+  //phone.setup(function() {
 	phone.makeCall('+17033891424', null, function(call){
-  		res.send("Made call");
   		call.on('answered', function(request, response){
   			response.append(new Twiml.Say("Hello"));
   			response.send();
@@ -52,9 +51,7 @@ app.get("/", function(req, res) {
   			console.log("call ended");
   	 	});
   	});
-  });
-*/
-  res.send("Jeah");
+ // });
 });
 
 app.post("/", function(req, res){
