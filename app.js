@@ -29,6 +29,15 @@ var onIncomingCall = function(reqParams, res){
   res.send();
 }
 
+phone.setup(function() {
+    app.listen(config.port, function(){
+        return console.log('Listening on ' + config.port);
+    });
+
+    phone.on('incomingCall', function(reqParams, response){
+        return onIncomingCall(reqParams, response);
+     });
+});
 
 app.get("/", function(req, res) {
   /*
@@ -64,15 +73,7 @@ app.get("/sms", function(req,res){
 */
 
 app.post("/voice", function(req,res){
-  phone.setup(function() {
-    app.listen(config.port, function(){
-        return console.log('Listening on ' + config.port);
-    });
-
-    return phone.on('incomingCall', function(reqParams, response){
-        return onIncomingCall(reqParams, response);
-     });
-  });
+  res.send("Jeah");
 });
 
 app.post("/voicetest", function(req,res){
