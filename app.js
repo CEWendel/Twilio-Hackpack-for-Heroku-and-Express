@@ -29,17 +29,6 @@ var onIncomingCall = function(reqParams, res){
   res.send();
 }
 
-phone.setup(function() {
-   app.listen(config.port, function(){
-      return console.log('Listening on ' + config.port);
-   });
-
-   return phone.on('incomingCall', function(reqParams, res){
-      return onIncomingCall(reqParams, res);
-   });
-
-});
-
 app.get("/", function(req, res) {
   /*
   phone.setup(function() {
@@ -74,25 +63,14 @@ app.get("/sms", function(req,res){
 */
 
 app.post("/voice", function(req,res){
-  phone.setup(function() {
-    /*
-    phone.makeCall('+17033891424', null, function(call){
-        res.send("Made call");
-        call.on('answered', function(request, response){
-         response.append(new Twiml.Say("Hello"));
-         response.send();
-        });
-        call.on('ended', function(req, resp){
-          console.log("call ended");
-      });
+    phone.setup(function() {
+    app.listen(config.port, function(){
+       return console.log('Listening on ' + config.port);
     });
-    */
-    phone.on('incomingCall', function(request, response){
-      response.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-      response.send();
+    return phone.on('incomingCall', function(reqParams, res){
+       return onIncomingCall(reqParams, res);
     });
   });
-  res.send("k");
 });
 
 app.post("/voicetest", function(req,res){
