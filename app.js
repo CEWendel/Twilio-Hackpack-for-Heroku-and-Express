@@ -58,6 +58,10 @@ app.get("/", function(req, res) {
   res.send("Jeah");
 });
 
+app.post("/", function(req, res){
+  res.send("Jeah");
+});
+
 app.get('/index', function(req, res){
 	res.render('index');
 });
