@@ -52,7 +52,9 @@ app.get("/sms", function(req,res){
 app.get("/voice", function(req,res){
   //res.append(new Twiml.say('Hey thanks for calling!'));
   //res.send();
-  res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID);
+  //res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID);
+  res.append(new Twiml.Say("Hello"));
+  res.send();
 });
 
 app.post("/incoming/sms", function(req, res) {
