@@ -43,16 +43,16 @@ Step-by-step on how to deploy, configure, and develop using this app
 <pre> heroku create --stack cedar </pre>
 
 3) Configure your app:
-	* run `npm install` to obtain the required node packages to get up and running
-	* <pre>node configure.js --account_sid ACXXXXX --auth_token yyyyy</pre>
-	* for local development, copy and paste the commands the configure script provides to set your local enviroment variables:
-	<pre>
-	export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
-	export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
-	export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz		
-	export TWILIO_CALLER_ID=+15556667777
-	</pre>
-	* Launch webserver: `foreman start`
+* run `npm install` to obtain the required node packages to get up and running
+* <pre>node configure.js --account_sid ACXXXXX --auth_token yyyyy</pre>
+* for local development, copy and paste the commands the configure script provides to set your local enviroment variables:
+<pre>
+export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
+export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
+export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz		
+export TWILIO_CALLER_ID=+15556667777
+</pre>
+* Launch webserver: `foreman start`
 
 4) Deploy to Heroku:
 <pre>git push heroku master</pre>
