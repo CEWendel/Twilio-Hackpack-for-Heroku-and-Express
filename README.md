@@ -42,24 +42,60 @@ Step-by-step on how to deploy, configure, and develop using this app
 2) Navigate to directory and create a [Heroku](https://toolbelt.herokuapp.com) Cedar stack:
 <pre> heroku create --stack cedar </pre>
 
-3) Configure your app:
-* run `npm install` to obtain the required node packages to get up and running
+3) Deploy to Heroku
+<pre> git push heroku master </pre>
 
-* run the configure script
+4) Open up your new app:
+<pre> heroku open </pre>
 
-<pre>node configure.js --account_sid ACXXXXX --auth_token yyyyy</pre>
-* for local development, copy and paste the commands the configure script provides to set your local enviroment variables:
+###Configuration
+There are a couple ways you can configure your app
 
+####Automatic Configuration
+The hackpack comes with a script to configure your Twilio app for you, meaning it purchases a new phone number for you, creates a new app for you, the whole shebang
+
+1) Make sure all dependencies are installed
+<pre> npm install </pre>
+
+2) Run configure script
+<pre> node configure --account_sid ACXXXXXX --auth_token YYYYYY </pre>
+
+3) For local development, copy and paste the commands given to you from the configure script into your shell.
 <pre>
-export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxx
-export TWILIO_AUTH_TOKEN=yyyyyyyyyyyyyyyyy
-export TWILIO_APP_SID=APzzzzzzzzzzzzzzzzzz
-export TWILIO_CALLER_ID=+15556667777
+export TWILIO_ACCOUNT_SID=ACXXXXXXXXXX
+export TWILIO_AUTH_TOKEN=YYYYYYYY
+export TWILIO_APP_SID=APZZZZZZZZ
+export TWILIO_CALLER_ID=+15556789123
 </pre>
-* Launch webserver: `foreman start`
 
-4) Deploy to Heroku:
-<pre>git push heroku master</pre>
+####Using your own enviroment variables
+If you already have a Twilio app and/or phone number you want to use you can set your local environment variables before you run the configure script, and the script will not set new ones up for you
 
-5) Check it out:
-<pre>heroku open</pre>
+1) Set local enviroment variables
+<pre>
+export TWILIO_ACCOUNT_SID=ACXXXXXXXXXX
+export TWILIO_AUTH_TOKEN=YYYYYYYY
+export TWILIO_APP_SID=APZZZZZZZZ
+export TWILIO_CALLER_ID=+15556789123
+</pre>
+
+2) And then run the configure script
+<pre> node configure.js </pre>
+
+### Local Development
+
+To run the hackpack locally:
+
+1) Install the dependencies
+<pre> npm install </pre>
+
+2) Launch local webserver
+<pre> foreman start </pre>
+
+3) Open browser to [localhost:5000](http://localhost:5000)
+
+4) Hack away on app.js
+
+##Questions
+Email Chris Wendel at [chriwend@umich.edu](chriwend@umich.edu)
+
