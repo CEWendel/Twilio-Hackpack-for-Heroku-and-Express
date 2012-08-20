@@ -68,8 +68,8 @@ app.post("/voice", function(req,res){
       response.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
       response.send();
     });
-    res.send("k");
   });
+  res.send("k");
 });
 
 app.post("/voicetest", function(req,res){
