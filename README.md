@@ -44,6 +44,7 @@ Step-by-step on how to deploy, configure, and develop using this app
 
 3) Configure your app:
 * run `npm install` to obtain the required node packages to get up and running
+
 * run the configure script
 
 <pre>node configure.js --account_sid ACXXXXX --auth_token yyyyy</pre>
