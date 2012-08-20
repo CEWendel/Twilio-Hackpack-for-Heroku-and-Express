@@ -14,7 +14,7 @@ config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
 config.HOST = 'twiliohackpacknodefinal.herokuapp.com';
-config.port = 5000;
+config.port = process.env.PORT || 5000;
 
 var TwilioClient = require('heroku-twilio').Client,
   Twiml = require('heroku-twilio').Twiml,
@@ -24,7 +24,24 @@ var TwilioClient = require('heroku-twilio').Client,
 
 var out = "hello", phone = client.getPhoneNumber('+17032910126');
 
+var onIncomingCall = function(reqParams, res){
+  res.append(new Twiml.Say("Hello"));
+  res.send();
+}
+
+phone.setup(function() {
+   app.listen(port, function(){
+      return console.log('Listening on ' + port);
+   });
+
+   return phone.on('incomingCall', function(reqParams, res){
+      return onIncomingCall(reqParams, res);
+   });
+
+});
+
 app.get("/", function(req, res) {
+  /*
   phone.setup(function() {
 	phone.makeCall('+17033891424', null, function(call){
   		res.send("Made call");
@@ -37,6 +54,8 @@ app.get("/", function(req, res) {
   	 	});
   	});
   });
+*/
+  res.send("Jeah");
 });
 
 app.get('/index', function(req, res){
@@ -87,5 +106,3 @@ app.post("/incoming/sms", function(req, res) {
 app.get("/incoming/sms", function(req, res){
 	res.send("<Response><Sms>Thanks!</Sms></Response>");
 });
-
-app.listen(process.env.PORT || config.port);
