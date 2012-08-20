@@ -50,8 +50,9 @@ app.get("/sms", function(req,res){
 });	
 */
 
-app.get("/voice", function(req,res){
+app.post("/voice", function(req,res){
   phone.setup(function() {
+    /*
     phone.makeCall('+17033891424', null, function(call){
         res.send("Made call");
         call.on('answered', function(request, response){
@@ -62,11 +63,18 @@ app.get("/voice", function(req,res){
           console.log("call ended");
       });
     });
-
+    */
     phone.on('incomingCall', function(request, response){
       res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
       res.send();
     });
+  });
+});
+
+app.post("/voicetest", function(req,res){
+  phone.on('incomingCall', function(request, response){
+      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
+      res.send();
   });
 });
 
