@@ -96,6 +96,6 @@ To run the hackpack locally:
 
 4) Hack away on app.js
 
-##Questions
+##Questions/Concerns
 Email Chris Wendel at [chriwend@umich.edu](chriwend@umich.edu)
 
