@@ -21,7 +21,7 @@ var TwilioClient = require('heroku-twilio').Client,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
-
+/*
 var out = "hello", phone = client.getPhoneNumber('+14157234224');
 
 app.get("/", function(req, res) {
@@ -38,17 +38,17 @@ app.get("/", function(req, res) {
   	});
   });
 });
-
+*/
 app.get('/index', function(req, res){
 	res.render('index');
 });
-
+/*
 app.get("/sms", function(req,res){
 	phone.sendSms("+17033891424", "Hello", {}, function(text){
 		res.send("Text sent");
 	})
 });	
-
+*/
 app.get("/voice", function(req,res){
   res.append(new Twiml.say('Hey thanks for calling!'));
   res.send();
