@@ -30,7 +30,7 @@ var onIncomingCall = function(reqParams, res){
 }
 
 phone.setup(function() {
-   app.listen(port, function(){
+   app.listen(config.port, function(){
       return console.log('Listening on ' + port);
    });
 
