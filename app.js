@@ -39,7 +39,11 @@ phone.setup(function() {
      });
 });
 
-app.get("/", function(req, res) {
+app.get("/", function(req, res){
+  res.render('index');
+};
+
+app.get("/makeCall", function(req, res) {
   
   //phone.setup(function() {
 	phone.makeCall('+17033891424', null, function(call){
