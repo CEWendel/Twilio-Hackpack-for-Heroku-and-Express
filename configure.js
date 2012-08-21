@@ -79,8 +79,9 @@ function Configure(){
 				}
 
 				self.printOutLocalEnvironmentVariableCommands();
-				self.setHerokuEnvironmentVariables(function(){
-					console.log('done adding heroku env variables');
+				self.setHerokuEnvironmentVariables(function(stdout){
+					console.log(stdout);
+					process.exit();
 				});
 
 				//console.log('The hackpack is now configured! Open up your heroku app and then Call ' + phone_number + 
@@ -110,10 +111,10 @@ function Configure(){
 		});
 	*/
 		exec('heroku config:add TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + 
-			'TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN +
-			'TWILIO_CALLER_ID=' + phone_number +
-			'TWILIO_APP_SID=' + app_sid, function(error, stdout, stderr){
-				callback();
+			'heroku config:add TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN +
+			'heroku config:add TWILIO_CALLER_ID=' + phone_number +
+			'heroku config:add TWILIO_APP_SID=' + app_sid, function(error, stdout, stderr){
+				callback(stdout);
 		});
 	};
 
