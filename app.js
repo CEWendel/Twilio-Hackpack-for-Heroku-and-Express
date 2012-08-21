@@ -25,8 +25,8 @@ var TwilioClient = require('heroku-twilio').Client,
 var out = "hello", phone = client.getPhoneNumber('+17032910126');
 
 var onIncomingCall = function(reqParams, res){
-  res.append(new Twiml.Say("Hello"));
-  res.send();
+    res.append(new Twiml.Say("Hello"));
+    res.send();
 }
 
 var onIncomingSms = function(reqParams, res){
@@ -35,17 +35,18 @@ var onIncomingSms = function(reqParams, res){
 }
 
 phone.setup(function() {
-    app.listen(config.port, function(){
-        return console.log('Listening on ' + config.port);
-    });
+  app.listen(config.port, function(){
+    return console.log('Listening on ' + config.port);
+  });
 
-    phone.on('incomingCall', function(reqParams, response){
-       return onIncomingCall(reqParams, response);
-    });
+  phone.on('incomingCall', function(reqParams, response){
+    return onIncomingCall(reqParams, response);
+  });
 
-    phone.on('incomingSms', function(reqParams, response){
-      return onIncomingSms(reqParams, response);
-    });
+  phone.on('incomingSms', function(reqParams, response){
+    console.log('Received incoming sms with text+', reqParams.Body);
+    return onIncomingSms(reqParams, response);
+  });
 });
 
 app.get("/", function(req, res){
