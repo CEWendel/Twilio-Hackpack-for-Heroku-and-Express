@@ -39,15 +39,28 @@ None.
 That's right, the twilio node helper library handles the voice and sms url's for you. All you have to do is setup your 'PhoneNumber' object
 
 ```javascript
-phone.setup(function(){
-	app.listen(config.port, function(){
-		return console.log('Listening on ' + config.port);
-	});
+var onIncomingCall = function(reqParams, res){
+  	res.append(new Twiml.Say("Hello"));
+  	res.send();
+}
 
-	phone.on('incomingCall', function(reqParams, response){
-		response.append(new Twiml.Say('Hello! This is your voice endpoint!'));
-		response.send();
-	});
+var onIncomingSms = function(reqParams, res){
+  	res.append(new Twiml.Say("Thanks for texting!"));
+  	res.send();
+}
+
+phone.setup(function() {
+    app.listen(config.port, function(){
+        return console.log('Listening on ' + config.port);
+    });
+
+    phone.on('incomingCall', function(reqParams, response){
+       return onIncomingCall(reqParams, response);
+    });
+
+    phone.on('incomingSms', function(reqParams, response){
+    	return onIncomingSms(reqParams, response);
+    });
 });
 ```
 
