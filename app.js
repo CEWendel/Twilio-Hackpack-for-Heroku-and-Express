@@ -35,7 +35,8 @@ phone.setup(function() {
     });
 
     phone.on('incomingCall', function(reqParams, response){
-        return onIncomingCall(reqParams, response);
+      res.append(new Twiml.Say("Hello"));
+      res.send();
      });
 });
 
@@ -44,8 +45,6 @@ app.get("/", function(req, res){
 });
 
 app.get("/makeCall", function(req, res) {
-  
-  //phone.setup(function() {
 	phone.makeCall('+17033891424', null, function(call){
       res.send('Made call');
   		call.on('answered', function(request, response){
@@ -56,23 +55,19 @@ app.get("/makeCall", function(req, res) {
   			console.log("call ended");
   	 	});
   	});
- // });
 });
 
-app.post("/", function(req, res){
-  res.send("Jeah");
+app.get("/sendSms", function(req, res){
+  var number = '+17033891424';
+  phone.sendSms(number, 'Jeah!', null, function(sms){
+    res.send('Sent sms to ' + number);
+  });
 });
+
 
 app.get('/index', function(req, res){
 	res.render('index');
 });
-/*
-app.get("/sms", function(req,res){
-	phone.sendSms("+17033891424", "Hello", {}, function(text){
-		res.send("Text sent");
-	})
-});	
-*/
 
 app.post("/voice", function(req,res){
   res.send("Jeah");

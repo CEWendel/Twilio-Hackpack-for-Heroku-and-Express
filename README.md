@@ -13,8 +13,10 @@ to easily set up your app and environments
 
 ##Usage:
 
-This hackpack comes with two ready-made Express endpoints in app.js:
+Endpoints in the Node hackpack don't work exactly like the other hackpacks...so pay attention!
+###Endpoints
 
+#### Application Endpoints (similar to other hackpacks)
 Voice endpoint:
 ```javascript
 app.get('/voice', function(req,res){
@@ -29,6 +31,23 @@ app.get('/sms', function(req,res){
 	var response = twiml.Response();
 	response.sms('');
 	res.send(response);
+});
+```
+
+#### Phone Number Endpoints
+None.
+That's right, the twilio node helper library handles the voice and sms url's for you. All you have to do is setup your 'PhoneNumber' object
+
+```javascript
+phone.setup(function(){
+	app.listen(config.port, function(){
+		return console.log('Listening on ' + config.port);
+	});
+
+	phone.on('incomingCall', function(reqParams, response){
+		response.append(new Twiml.Say('Hello! This is your voice endpoint!'));
+		response.send();
+	});
 });
 ```
 
