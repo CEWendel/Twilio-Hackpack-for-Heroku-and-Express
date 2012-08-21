@@ -35,8 +35,10 @@ phone.setup(function() {
     });
 
     phone.on('incomingCall', function(reqParams, response){
-      res.append(new Twiml.Say("Hello"));
-      res.send();
+       return onIncomingCall {
+        res.append(new Twiml.Say("Hello"));
+        res.send();
+      }
      });
 });
 
