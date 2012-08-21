@@ -54,7 +54,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/makeCall", function(req, res) {
-	phone.makeCall('+17033891424', null, function(call){
+	phone.makeCall('+17032910026', null, function(call){
       res.send('Made call');
   		call.on('answered', function(request, response){
   			response.append(new Twiml.Say("Hello"));
@@ -67,7 +67,7 @@ app.get("/makeCall", function(req, res) {
 });
 
 app.get("/sendSms", function(req, res){
-  var number = '+17033891424';
+  var number = '+17032910026';
   phone.sendSms(number, 'Jeah!', null, function(sms){
     res.send('Sent sms to ' + number);
   });

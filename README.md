@@ -64,6 +64,36 @@ phone.setup(function() {
 });
 ```
 
+###Making Rest Calls and Sending Texts
+
+The hackpack comes with two endpoints that show you how to make a call and send a text using the Twilio node helper library:
+
+####Making Calls
+```javascript
+app.get("/makeCall", function(req, res) {
+	phone.makeCall('+17032910026', null, function(call){
+      res.send('Made call');
+  		call.on('answered', function(request, response){
+  			response.append(new Twiml.Say("Hello"));
+  			response.send();
+  		});
+  		call.on('ended', function(req, resp){
+  			console.log("call ended");
+  	 	});
+  	});
+});
+```
+
+####Sending Sms
+```javascript
+app.get("/sendSms", function(req, res){
+  var number = '+17032910026';
+  phone.sendSms(number, 'Hello!', null, function(sms){
+    res.send('Sent sms to ' + number);
+  });
+});
+```
+
 ##Installation:
 Step-by-step on how to deploy, configure, and develop using this app
 
