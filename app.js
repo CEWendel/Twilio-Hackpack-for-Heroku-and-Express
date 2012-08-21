@@ -41,7 +41,7 @@ phone.setup(function() {
 
 app.get("/", function(req, res){
   res.render('index');
-};
+});
 
 app.get("/makeCall", function(req, res) {
   
