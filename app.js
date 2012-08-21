@@ -52,6 +52,13 @@ app.get("/", function(req, res){
   res.render('index');
 });
 
+app.get("/testVars", function(req,res){
+  res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID + 
+    'auth_token is ' + process.env.TWILIO_AUTH_TOKEN + 
+    'app_sid is ' + process.env.TWILIO_APP_SID + 
+    'caller_id is ' + process.env.TWILIO_CALLER_ID);
+});
+
 app.get("/makeCall", function(req, res) {
 	phone.makeCall('+17032910026', null, function(call){
       res.send('Made call');

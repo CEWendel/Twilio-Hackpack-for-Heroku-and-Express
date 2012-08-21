@@ -30,12 +30,10 @@ function Configure(){
 		console.info('Configuring your Twilio hackpack...');
 		console.info('Checking if your credentials are set...');
 		if(!account_sid){
-			console.error("ACCOUNT_SID is not set");
-			process.exit();
+			throw new Error("ACCOUNT_SID is not set");
 		}
 		if(!auth_token){
-			console.error("AUTH_TOKEN is not set");
-			process.exit();
+			throw new Error("AUTH_TOKEN is not set");
 		}
 
 		console.log('Checking for host name...');
@@ -51,10 +49,10 @@ function Configure(){
 		try{
 			client = new TwilioClient(account_sid, auth_token, host_);
 		}catch(e){
-			console.error('Could not create Twilio Rest Client, exception: ' + e);
-			process.exit();
+			throw new Error('Could not create Twilio Rest Client, exception: ' + e);
 		}
 
+		// If 'http://' isn't found in the voice_url, append the voice_url to the host name
 		if(voice_url.indexOf('http://') == -1 ){
 			voice_url = host_ + voice_url;
 			console.info('Voice url is now ' + voice_url);
@@ -70,24 +68,24 @@ function Configure(){
 			phone_number = number.phone_number;
 			
 			if(!phone_number){
-				console.error('There was a problem getting the Caller_Id');
-				process.exit();
+				throw new Error('There was a problem getting the Caller_Id');
 			}
 
 			self.configureApp(function(app){
 				app_sid = app.sid;
 
 				if(!app_sid){
-					console.error('There was a probem setting up the app')
-					process.exit();
+					throw new Error('There was a probem setting up the app')
 				}
 
 				self.printOutLocalEnvironmentVariableCommands();
-				self.setHerokuEnvironmentVariables();
+				self.setHerokuEnvironmentVariables(function(){
+					console.log('done adding heroku env variables');
+				});
 
-				console.log('The hackpack is now configured! Call ' + phone_number + ' to Test!' +
-					'\n Go hack away on app.js!');
-				process.exit();
+				//console.log('The hackpack is now configured! Open up your heroku app and then Call ' + phone_number + 
+				//	' to Test!' + '\n Go hack away on app.js!');
+				//process.exit();
 			});
 		});
 	};	
@@ -100,11 +98,23 @@ function Configure(){
 					'export TWILIO_CALLER_ID=' + phone_number + '\n');
 	};
 
-	this.setHerokuEnvironmentVariables = function(){
+	this.setHerokuEnvironmentVariables = function(callback){
+		/*
+		exec('heroku config:add TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID,
+			function (error, stdout, stderr){
+				console.log(stdout);
+		});
+		exec('heroku config:add TWILIO_AUTH_TOKEN' + process.env.TWILIO_AUTH_TOKEN,
+			function(error, stdout, stderr){
+				console.log(stdout);
+		});
+	*/
 		exec('heroku config:add TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + 
 			'TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN +
 			'TWILIO_CALLER_ID=' + phone_number +
-			'TWILIO_APP_SID=' + app_sid );
+			'TWILIO_APP_SID=' + app_sid, function(error, stdout, stderr){
+				callback();
+		});
 	};
 
 	this.purchasePhoneNumber = function(purchasedCallback){
@@ -132,9 +142,7 @@ function Configure(){
 			function(output){
 			if(output=='y'){
 				params = {
-					AreaCode: '703',
-					VoiceUrl: voice_url,
-					SmsUrl: sms_url
+					AreaCode: '703'
 				}
 				try{
 					client.purchaseIncomingNumber(params, function(body){
@@ -142,8 +150,7 @@ function Configure(){
 						purchasedCallback(number);
 					});
 				}catch(e){
-					console.error('Purchasing incoming number failed. Exception: ' + e);
-					process.exit();
+					throw new Error('Purchasing incoming number failed. Exception: ' + e);
 				}
 			}else{
 				console.log('A Caller_Id must be specified');
@@ -159,8 +166,7 @@ function Configure(){
 					phone_number = number.phone_number;
 					callback(number);
 				}else{
-					console.error('A phone number could not be retrieved. Are you sure you have a caller_id?');
-					process.exit();
+					throw new Error('A phone number could not be retrieved. Are you sure you have a caller_id?');
 				}
 			});
 		}else{
@@ -169,8 +175,7 @@ function Configure(){
 					phone_number = number.phone_number;			
 					callback(number);
 				}else{
-					console.error('A phone number could not be retrieved. Are you sure you have a caller_id?');
-					process.exit();
+					throw new Error('A phone number could not be retrieved. Are you sure you have a caller_id?');
 				}
 			});
 		}
@@ -187,8 +192,7 @@ function Configure(){
 				callback(number);
 			});
 		}catch (e) {
-			console.error('Could not retrieve incoming numbers for account. Exception: ' + e);
-			process.exit();
+			throw new Error('Could not retrieve incoming numbers for account. Exception: ' + e);
 		}	
 	};
 
@@ -226,12 +230,10 @@ function Configure(){
 						createdCallback(data);
 					});
 				}catch(e){
-					console.error('Could not create the application. Exception: ' + e);
-					process.exit();
+					throw new Error('Could not create the application. Exception: ' + e);
 				}
 			}else{
-				console.error('Your APP_SID must be configured');
-				process.exit();
+				throw new Error('Your APP_SID must be configured');
 			}
 		});
 	};
@@ -244,8 +246,7 @@ function Configure(){
 					app_sid = app.sid;
 					callback(app);
 				}else{
-					console.error('Failed creating a new TwiML app');
-					process.exit();
+					throw new Error('Failed creating a new TwiML app');
 				}
 			});
 		}else{
@@ -254,8 +255,7 @@ function Configure(){
 					app_sid = app.sid;
 					callback(app)
 				}else{
-					console.error('Failed updating app urls');
-					process.exit();
+					throw new Error('Failed updating app urls');
 				}
 			});
 		}
@@ -272,8 +272,7 @@ function Configure(){
 				callback(body);
 			});
 		} catch (e) {
-			console.error('Could not update application');
-			process.exit();
+			throw new Error('Could not update application');
 		}
 	};
 
@@ -284,8 +283,7 @@ function Configure(){
 		try{
 			var array = fs.readFileSync('./.git/config').toString().split('\n');
 		} catch (e) {
-			console.error('Could not read ./.git/config file, does it still exist? Failed path: ' + e);
-			process.exit();
+			throw new Error('Could not read ./.git/config file, does it still exist? Failed path: ' + e);
 		}
 		for(line in array){
 			if(array[line].indexOf('git@heroku.com') != -1){
@@ -301,7 +299,7 @@ function Configure(){
 			console.info('Full host is ' + host);
 			return host;
 		}else{
-			console.error('Could not find Heroku remote in ./.git/config. Have you created the Heroku app?');
+			throw new Error('Could not find Heroku remote in ./.git/config. Have you created the Heroku app?');
 		}
 	};
 
@@ -337,11 +335,6 @@ function Configure(){
 	this.setDomain = function(domain){
 		host_ = domain;
 	}
-}
-
-var logError = function(error){
-	console.error(error);
-	process.exit();
 }
 
 var configure = new Configure();
