@@ -9,10 +9,10 @@ app.configure(function(){
 	app.set('view engine', 'jade');
 });
 
-
 config = {};
-config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
-config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
+config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+config.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+config.TWILIO_CALLER_ID = process.env.TWILIO_CALLER_ID;
 config.HOST = 'twiliohackpacknodefinal.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
@@ -22,7 +22,7 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var out = "hello", phone = client.getPhoneNumber('+17032910126');
+var phone = client.getPhoneNumber('+17032910126');
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
@@ -51,14 +51,14 @@ phone.setup(function() {
 app.get("/", function(req, res){
   res.render('index');
 });
-
+/*
 app.get("/testVars", function(req,res){
   res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID + 
     'auth_token is ' + process.env.TWILIO_AUTH_TOKEN + 
     'app_sid is ' + process.env.TWILIO_APP_SID + 
     'caller_id is ' + process.env.TWILIO_CALLER_ID);
 });
-
+*/
 app.get("/makeCall", function(req, res) {
 	phone.makeCall('+17032910026', null, function(call){
       res.send('Made call');
@@ -79,27 +79,13 @@ app.get("/sendSms", function(req, res){
   });
 });
 
-
-app.get('/index', function(req, res){
-	res.render('index');
+app.all("/voice", function(req,res){
+  var r = new Twiml.Response();
+  r.append(new Twiml.Say('Hello! This is your voice endpoint for your Twilio app'));
+  res.send(r.toString());
 });
 
-app.post("/voice", function(req,res){
-  res.send("Jeah");
-});
-
-app.post("/voicetest", function(req,res){
-  phone.on('incomingCall', function(request, response){
-      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-      res.send();
-  });
-});
-
-app.post("/incoming/sms", function(req, res) {
-  console.log("incoming sms!");
-  res.send("<Response><Sms>Thanks!</Sms></Response>");
-});
-
-app.get("/incoming/sms", function(req, res){
-	res.send("<Response><Sms>Thanks!</Sms></Response>");
+app.all("/sms", function(req,res){
+  var r = '<Response><Sms>Hello! This is the sms endpoint for your Twilio app</Say></Response>'
+  res.send(r);
 });
