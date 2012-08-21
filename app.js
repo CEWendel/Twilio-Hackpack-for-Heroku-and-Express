@@ -25,13 +25,13 @@ var TwilioClient = require('heroku-twilio').Client,
 var out = "hello", phone = client.getPhoneNumber('+17032910126');
 
 var onIncomingCall = function(reqParams, res){
-    res.append(new Twiml.Say("Hello"));
-    res.send();
+  res.append(new Twiml.Say("Hello"));
+  res.send();
 }
 
 var onIncomingSms = function(reqParams, res){
-    res.append(new Twiml.Say("Thanks for texting!"));
-    res.send();
+  res.append(new Twiml.Say("Thanks for texting!"));
+  res.send();
 }
 
 phone.setup(function() {

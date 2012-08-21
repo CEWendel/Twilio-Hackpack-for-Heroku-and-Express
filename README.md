@@ -40,27 +40,27 @@ That's right, the twilio node helper library handles the voice and sms url's for
 
 ```javascript
 var onIncomingCall = function(reqParams, res){
-  	res.append(new Twiml.Say("Hello"));
-  	res.send();
+  res.append(new Twiml.Say("Hello"));
+  res.send();
 }
 
 var onIncomingSms = function(reqParams, res){
-  	res.append(new Twiml.Say("Thanks for texting!"));
-  	res.send();
+  res.append(new Twiml.Say("Thanks for texting!"));
+  res.send();
 }
 
 phone.setup(function() {
-    app.listen(config.port, function(){
-        return console.log('Listening on ' + config.port);
-    });
+  app.listen(config.port, function(){
+    return console.log('Listening on ' + config.port);
+  });
 
-    phone.on('incomingCall', function(reqParams, response){
-       return onIncomingCall(reqParams, response);
-    });
+  phone.on('incomingCall', function(reqParams, response){
+    return onIncomingCall(reqParams, response);
+  });
 
-    phone.on('incomingSms', function(reqParams, response){
-    	return onIncomingSms(reqParams, response);
-    });
+  phone.on('incomingSms', function(reqParams, response){
+   	return onIncomingSms(reqParams, response);
+  });
 });
 ```
 
