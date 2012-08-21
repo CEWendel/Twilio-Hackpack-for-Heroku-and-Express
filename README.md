@@ -36,7 +36,7 @@ app.get('/sms', function(req,res){
 
 #### Phone Number Endpoints
 None.
-That's right, the twilio node helper library handles the voice and sms url's for you. All you have to do is setup your 'PhoneNumber' object
+That's right, the twilio node helper library handles the Voice and Sms url's for you. All you have to do is setup your 'PhoneNumber' object
 
 ```javascript
 var onIncomingCall = function(reqParams, res){
@@ -45,7 +45,7 @@ var onIncomingCall = function(reqParams, res){
 }
 
 var onIncomingSms = function(reqParams, res){
-  res.append(new Twiml.Say("Thanks for texting!"));
+  res.append(new Twiml.Sms("Thanks for texting!"));
   res.send();
 }
 

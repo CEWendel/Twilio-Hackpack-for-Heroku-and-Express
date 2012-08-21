@@ -30,7 +30,7 @@ var onIncomingCall = function(reqParams, res){
 }
 
 var onIncomingSms = function(reqParams, res){
-  res.append(new Twiml.Say("Thanks for texting!"));
+  res.append(new Twiml.Sms("Thanks for texting!"));
   res.send();
 }
 
@@ -44,7 +44,6 @@ phone.setup(function() {
   });
 
   phone.on('incomingSms', function(reqParams, response){
-    console.log('Received incoming sms with text+', reqParams.Body);
     return onIncomingSms(reqParams, response);
   });
 });
