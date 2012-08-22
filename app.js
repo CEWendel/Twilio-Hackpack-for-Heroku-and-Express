@@ -13,7 +13,7 @@ config = {};
 config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 config.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 config.TWILIO_CALLER_ID = process.env.TWILIO_CALLER_ID;
-config.HOST = 'twiliohackpacknodefinal.herokuapp.com';
+config.HOST = process.env.TWILIO_HOST;
 config.port = process.env.PORT || 5000;
 
 var TwilioClient = require('heroku-twilio').Client,
@@ -22,7 +22,8 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var phone = client.getPhoneNumber('+17032910126');
+/* Set up the PhoneNumber object with our CallerId */
+var phone = client.getPhoneNumber(config.TWILIO_CALLER_ID);
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
@@ -51,14 +52,15 @@ phone.setup(function() {
 app.get("/", function(req, res){
   res.render('index');
 });
-/*
+
 app.get("/testVars", function(req,res){
   res.send('account sid is ' + process.env.TWILIO_ACCOUNT_SID + 
     'auth_token is ' + process.env.TWILIO_AUTH_TOKEN + 
     'app_sid is ' + process.env.TWILIO_APP_SID + 
-    'caller_id is ' + process.env.TWILIO_CALLER_ID);
+    'caller_id is ' + process.env.TWILIO_CALLER_ID +
+    'host is ' + process.env.TWILIO_HOST);
 });
-*/
+
 app.get("/makeCall", function(req, res) {
 	phone.makeCall('+17032910026', null, function(call){
       res.send('Made call');

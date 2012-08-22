@@ -80,7 +80,9 @@ function Configure(){
 
 				self.printOutLocalEnvironmentVariableCommands();
 				self.setHerokuEnvironmentVariables(function(stdout){
-					console.log(stdout);
+					console.log(stdout + '\n');
+					console.log('Your hackpack is almost configured! Open up your Heorku app (heroku open)' +
+					'to configure your Voice and Sms urls and then hack away on app.js!');
 					process.exit();
 				});
 			});
@@ -92,14 +94,16 @@ function Configure(){
 					'export TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + '\n' + 
 					'export TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN + '\n' +
 					'export TWILIO_APP_SID=' + app_sid + '\n' +
-					'export TWILIO_CALLER_ID=' + phone_number + '\n');
+					'export TWILIO_CALLER_ID=' + phone_number + '\n' +
+					'export TWILIO_HOST=' + host_ + '\n');
 	};
 
 	this.setHerokuEnvironmentVariables = function(callback){
 		exec('heroku config:add TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + 
 			' TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN +
 			' TWILIO_CALLER_ID=' + phone_number +
-			' TWILIO_APP_SID=' + app_sid, function(error, stdout, stderr){
+			' TWILIO_APP_SID=' + app_sid +
+			' TWILIO_HOST=' + host_ , function(error, stdout, stderr){
 				if(stderr){
 					throw new Error('Could not add environment variables to Heroku: ' + stderr)
 				} else{
