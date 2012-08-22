@@ -10,17 +10,17 @@
           p.blurb Here are some important links:
           a.button(href='https://www.twilio.com/user/account/apps') Configure Twilio
           dl#url_list
-            dt Voice Request URL
+            dt Make Call URL
+            dd
+              a(href='/makeCall')
+                | Click Here
+            dt Send Sms URL
+            dd
+              a(href='/sendSms')
+                | Click Here
+            dt Application Voice URL
             dd
               a(href='/voice')
-                | Click Here
-            dt SMS Request URL
-            dd
-              a(href='/sms')
-                | Click Here
-            dt Client URL
-            dd
-              a(href='/client')
                 | Click Here
       footer
         p.footer
@@ -29,6 +29,6 @@
           | .
           | Released under
           a(href='http://www.opensource.org/licenses/mit-license.html')
-            | MIT license
+            |  MIT license
           | .
 
