@@ -1,6 +1,7 @@
 var express = require('express')
 	, pub = __dirname + '/public';
 
+/* Create the Express app */
 app = express.createServer();
 app.configure(function(){
 	app.use(express.bodyParser());
@@ -9,6 +10,7 @@ app.configure(function(){
 	app.set('view engine', 'jade');
 });
 
+/* Create a hash to store our environment variables in needed to create the client */
 config = {};
 config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 config.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
@@ -16,6 +18,7 @@ config.TWILIO_CALLER_ID = process.env.TWILIO_CALLER_ID;
 config.HOST = process.env.TWILIO_HOST;
 config.port = process.env.PORT || 5000;
 
+/* Set up the Twilio Rest Client */
 var TwilioClient = require('heroku-twilio').Client,
   Twiml = require('heroku-twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
@@ -25,6 +28,7 @@ var TwilioClient = require('heroku-twilio').Client,
 /* Set up the PhoneNumber object with our CallerId */
 var phone = client.getPhoneNumber(config.TWILIO_CALLER_ID);
 
+/* Create functions to be called when Voice and Sms endpoints are reached */
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
   res.send();
@@ -35,6 +39,7 @@ var onIncomingSms = function(reqParams, res){
   res.send();
 }
 
+/* Call the setup function on the PhoneNumber object to set up our Voice and Sms endpoints */
 phone.setup(function() {
   app.listen(config.port, function(){
     return console.log('Listening on ' + config.port);
@@ -49,6 +54,7 @@ phone.setup(function() {
   });
 });
 
+/* Base route */
 app.get("/", function(req, res){
   res.render('index');
 });
@@ -61,6 +67,7 @@ app.get("/testVars", function(req,res){
     'host is ' + process.env.TWILIO_HOST);
 });
 
+/* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
 	phone.makeCall('+17032910026', null, function(call){
       res.send('Made call');
@@ -74,6 +81,7 @@ app.get("/makeCall", function(req, res) {
   	});
 });
 
+/* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
 app.get("/sendSms", function(req, res){
   var number = '+17032910026';
   phone.sendSms(number, 'Jeah!', null, function(sms){
@@ -81,13 +89,9 @@ app.get("/sendSms", function(req, res){
   });
 });
 
+/* Voice endpoint for Twilio Client app. NOT used for Twilio Phone Number endpoint */
 app.all("/voice", function(req,res){
   var r = new Twiml.Response();
   r.append(new Twiml.Say('Hello! This is your voice endpoint for your Twilio app'));
   res.send(r.toString());
-});
-
-app.all("/sms", function(req,res){
-  var r = '<Response><Sms>Hello! This is the sms endpoint for your Twilio app</Say></Response>'
-  res.send(r);
 });
