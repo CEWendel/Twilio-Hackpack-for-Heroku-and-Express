@@ -28,8 +28,7 @@ app.all("/voice", function(req,res){
 ```
 
 #### Phone Number Endpoints
-None.
-That's right, the twilio node helper library handles the Voice and Sms url's for you. All you have to do is setup your 'PhoneNumber' object
+The twilio node helper library handles the Voice and Sms url's for you. All you have to do is setup your 'PhoneNumber' object
 
 ```javascript
 var onIncomingCall = function(reqParams, res){
