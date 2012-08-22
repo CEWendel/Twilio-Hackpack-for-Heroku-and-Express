@@ -17,21 +17,13 @@ to easily set up your app and environments
 Endpoints in the Node hackpack don't work exactly like the other hackpacks...so pay attention!
 ###Endpoints
 
-#### Application Endpoints (similar to other hackpacks)
+#### Twilio Application Endpoints (Uses for Twilio Client)
 Voice endpoint:
 ```javascript
-app.get('/voice', function(req,res){
-	var response = twiml.Response();
-	response.play('');
-	res.send(response);
-});
-```
-Sms endpoint:
-```javascript
-app.get('/sms', function(req,res){
-	var response = twiml.Response();
-	response.sms('');
-	res.send(response);
+app.all("/voice", function(req,res){
+  var r = new Twiml.Response();
+  r.append(new Twiml.Say('Hello! This is your voice endpoint for your Twilio app'));
+  res.send(r.toString());
 });
 ```
 
