@@ -8,7 +8,7 @@ Port of [Rob Spectre's Hackpack for Flask](http://github.com/robspectre/Twilio-H
 * Heroku Friendly - Uses the [heroku-twilio](http://github.com/cewendel/heroku-twilio) package so your app can successfully make calls on Heroku!
 * Make Rest Texts/Calls - Comes ready to send texts and make calls to any phone number.
 * Voice/Sms endpoints - Automatically sets up Voice and Sms URL's for your Twilio Caller-Id, and Voice URL for your Twilio App.
-* Configuration - Simply run `node configure.js --account_sid ACxxx --auth_token yyyyy`
+* Configuration - Simply run `node configure.js --account_sid ACXXXX --auth_token YYYY`
 to easily set up your app and environments
 * Easy hacking - Just modify app.js to start building cool Twilio apps immediately 
 
@@ -28,7 +28,7 @@ app.all("/voice", function(req,res){
 ```
 
 #### Phone Number Endpoints
-The twilio node helper library handles the Voice and Sms url's for you. All you have to do is setup your 'PhoneNumber' object
+The Twilio node helper library handles the Voice and Sms url's for you. All you have to do is setup your 'PhoneNumber' object
 
 ```javascript
 var onIncomingCall = function(reqParams, res){
