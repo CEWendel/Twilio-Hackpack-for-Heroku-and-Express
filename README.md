@@ -91,16 +91,13 @@ Step-by-step on how to deploy, configure, and develop using this app
 
 ###Getting started
 1) Clone this repo
-<pre>git clone git://github.com/cewendel/Twilio-Hackpack-for-Heroku-and-Express.git</pre>
+<pre>git clone git@github.com:CEWendel/Twilio-Hackpack-for-Heroku-and-Express.git</pre>
 
-2) Navigate to directory and create a [Heroku](https://toolbelt.herokuapp.com) Cedar stack:
+2) Navigate to the directory and create a [Heroku](https://toolbelt.herokuapp.com) Cedar stack:
 <pre> heroku create --stack cedar </pre>
 
 3) Deploy to Heroku
 <pre> git push heroku master </pre>
-
-4) Open up your new app:
-<pre> heroku open </pre>
 
 ###Configuration
 There are a couple ways you can configure your app
@@ -122,6 +119,9 @@ export TWILIO_APP_SID=APZZZZZZZZ
 export TWILIO_CALLER_ID=+15556789123
 </pre>
 
+4) Open your app
+<pre> heroku open </pre>
+
 ####Using your own enviroment variables
 If you already have a Twilio app and/or phone number you want to use you can set your local environment variables before you run the configure script, and the script will not set new ones up for you
 
@@ -135,6 +135,9 @@ export TWILIO_CALLER_ID=+15556789123
 
 2) And then run the configure script
 <pre> node configure.js </pre>
+
+3) Open your app
+<pre> heroku open </pre>
 
 ### Local Development
 
