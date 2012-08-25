@@ -61,24 +61,33 @@ app.get("/", function(req, res){
 
 /* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
-	phone.makeCall('+17032910026', null, function(call){
+  var number; // Set this equal to the number you want to call
+  if(!number){
+    res.send('You need to set a phone number to call in app.js');
+  }else{
+  	phone.makeCall(number, null, function(call){
       res.send('Made call');
-  		call.on('answered', function(request, response){
-  			response.append(new Twiml.Say("Hello"));
-  			response.send();
-  		});
-  		call.on('ended', function(req, resp){
-  			console.log("call ended");
-  	 	});
-  	});
+    	call.on('answered', function(request, response){
+    		response.append(new Twiml.Say("Hello"));
+    		response.send();
+    	});
+    	call.on('ended', function(req, resp){
+    		console.log("call ended");
+    	});
+    });
+  }
 });
 
 /* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
 app.get("/sendSms", function(req, res){
-  var number = '+17032910026';
-  phone.sendSms(number, 'Jeah!', null, function(sms){
-    res.send('Sent sms to ' + number);
-  });
+  var number; // Set this equal to the number you want to text
+  if(!number){
+    res.send('You need to set a phone number to call in app.js');
+  }else{
+    phone.sendSms(number, 'Jeah!', null, function(sms){
+      res.send('Sent sms to ' + number);
+    });
+  }
 });
 
 /* Voice endpoint for Twilio Client app. NOT used for Twilio Phone Number endpoint */
