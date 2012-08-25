@@ -63,7 +63,7 @@ The hackpack comes with two endpoints that show you how to make a call and send 
 ####Making Calls
 ```javascript
 app.get("/makeCall", function(req, res) {
-	phone.makeCall('+17032910026', null, function(call){
+	phone.makeCall('+1XXXYYYZZZZ', null, function(call){
       res.send('Made call');
   		call.on('answered', function(request, response){
   			response.append(new Twiml.Say("Hello"));
@@ -79,7 +79,7 @@ app.get("/makeCall", function(req, res) {
 ####Sending Sms
 ```javascript
 app.get("/sendSms", function(req, res){
-  var number = '+17032910026';
+  var number = '+1XXXYYYZZZZ';
   phone.sendSms(number, 'Hello!', null, function(sms){
     res.send('Sent sms to ' + number);
   });
