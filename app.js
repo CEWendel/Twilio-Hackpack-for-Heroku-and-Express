@@ -22,7 +22,7 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var out = "hello", phone = client.getPhoneNumber('+17035961340');
+var phone = client.getPhoneNumber('+17035961267');
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
