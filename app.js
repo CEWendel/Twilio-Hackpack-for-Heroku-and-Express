@@ -58,6 +58,21 @@ phone.setup(function() {
 
 /* Base route */
 app.get("/", function(req, res){
+  /* Call the setup function on the PhoneNumber object to set up our Voice and Sms endpoints */
+  phone.setup(function() {
+    console.log('Phone setup called');
+    app.listen(config.port, function(){
+      return console.log('Listening on ' + config.port);
+    });
+
+    return phone.on('incomingCall', function(reqParams, response){
+      return onIncomingCall(reqParams, response);
+    });
+
+    return phone.on('incomingSms', function(reqParams, response){
+      return onIncomingSms(reqParams, response);
+    });
+  });
   res.render('index');
 });
 
