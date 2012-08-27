@@ -91,7 +91,7 @@ Step-by-step on how to deploy, configure, and develop using this app
 
 ###Getting started
 1) Clone this repo
-<pre>git clone git@github.com:CEWendel/Twilio-Hackpack-for-Heroku-and-Express.git</pre>
+<pre> git clone git@github.com:CEWendel/Twilio-Hackpack-for-Heroku-and-Express.git</pre>
 
 2) Navigate to the directory and create a [Heroku](https://toolbelt.herokuapp.com) Cedar stack:
 <pre> heroku create --stack cedar </pre>
