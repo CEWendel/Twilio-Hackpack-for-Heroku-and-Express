@@ -22,7 +22,7 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var out = "hello", phone = client.getPhoneNumber('+17035968908');
+var out = "hello", phone = client.getPhoneNumber('+17035961340');
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
@@ -52,8 +52,13 @@ app.get("/", function(req, res){
   res.render('index');
 });
 
+/* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
-  phone.makeCall('+17033891424', null, function(call){
+  var number; // Set this equal to the number you want to call
+  if(!number){
+    res.send('You need to set a phone number to call in app.js');
+  }else{
+    phone.makeCall(number, null, function(call){
       res.send('Made call');
       call.on('answered', function(request, response){
         response.append(new Twiml.Say("Hello"));
@@ -63,36 +68,24 @@ app.get("/makeCall", function(req, res) {
         console.log("call ended");
       });
     });
+  }
 });
 
+/* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
 app.get("/sendSms", function(req, res){
-  var number = '+17033891424';
-  phone.sendSms(number, 'Jeah!', null, function(sms){
-    res.send('Sent sms to ' + number);
-  });
+  var number; // Set this equal to the number you want to text
+  if(!number){
+    res.send('You need to set a phone number to call in app.js');
+  }else{
+    phone.sendSms(number, 'Jeah!', null, function(sms){
+      res.send('Sent sms to ' + number);
+    });
+  }
 });
 
-
-app.get('/index', function(req, res){
-  res.render('index');
-});
-
-app.post("/voice", function(req,res){
-  res.send("Jeah");
-});
-
-app.post("/voicetest", function(req,res){
-  phone.on('incomingCall', function(request, response){
-      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-      res.send();
-  });
-});
-
-app.post("/incoming/sms", function(req, res) {
-  console.log("incoming sms!");
-  res.send("<Response><Sms>Thanks!</Sms></Response>");
-});
-
-app.get("/incoming/sms", function(req, res){
-  res.send("<Response><Sms>Thanks!</Sms></Response>");
+/* Voice endpoint for Twilio Client app. NOT used for Twilio Phone Number endpoint */
+app.all("/voice", function(req,res){
+  var r = new Twiml.Response();
+  r.append(new Twiml.Say('Hello! This is your voice endpoint for your Twilio app'));
+  res.send(r.toString());
 });
