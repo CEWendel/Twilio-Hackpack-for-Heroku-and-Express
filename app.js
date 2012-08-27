@@ -12,10 +12,10 @@ app.configure(function(){
 
 /* Create a hash to store our environment variables in needed to create the client */
 config = {};
-config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
-config.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
+config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
 config.TWILIO_CALLER_ID = process.env.TWILIO_CALLER_ID;
-config.HOST = process.env.TWILIO_HOST;
+config.HOST = 'http://twiliohackpacknodefinal.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Set up the Twilio Rest Client */
@@ -31,7 +31,7 @@ console.log('phone is ' + phone);
 
 /* Create functions to be called when Voice and Sms endpoints are reached */
 var onIncomingCall = function(reqParams, res){
-  res.append(new Twiml.Say("Hello"));
+  res.append(new Twiml.Say("Hello this is a test"));
   res.send();
 }
 
