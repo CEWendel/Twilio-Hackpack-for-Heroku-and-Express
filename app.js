@@ -14,7 +14,7 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.HOST = 'http://twiliohackpacknodefinal.herokuapp.com';
+config.HOST = 'http://twilionodedifferent.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Set up the Twilio Rest Client */
