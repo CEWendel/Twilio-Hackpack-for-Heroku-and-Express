@@ -47,11 +47,11 @@ phone.setup(function() {
     return console.log('Listening on ' + config.port);
   });
 
-  phone.on('incomingCall', function(reqParams, response){
+  return phone.on('incomingCall', function(reqParams, response){
     return onIncomingCall(reqParams, response);
   });
 
-  phone.on('incomingSms', function(reqParams, response){
+  return phone.on('incomingSms', function(reqParams, response){
     return onIncomingSms(reqParams, response);
   });
 });
