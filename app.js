@@ -14,7 +14,6 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.TWILIO_CALLER_ID = process.env.TWILIO_CALLER_ID;
 config.HOST = 'http://twiliohackpacknodefinal.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
@@ -26,7 +25,7 @@ var TwilioClient = require('heroku-twilio').Client,
   });
 
 /* Set up the PhoneNumber object with our CallerId */
-var phone = client.getPhoneNumber('+17035968908');
+var phone = client.getPhoneNumber('+17035968935');
 
 /* Create functions to be called when Voice and Sms endpoints are reached */
 var onIncomingCall = function(reqParams, res){
