@@ -27,11 +27,10 @@ var TwilioClient = require('heroku-twilio').Client,
 
 /* Set up the PhoneNumber object with our CallerId */
 var phone = client.getPhoneNumber('+17035944090');
-console.log('phone is ' + phone);
 
 /* Create functions to be called when Voice and Sms endpoints are reached */
 var onIncomingCall = function(reqParams, res){
-  res.append(new Twiml.Say("Hello this is a test"));
+  res.append(new Twiml.Say("Hello"));
   res.send();
 }
 
@@ -42,37 +41,17 @@ var onIncomingSms = function(reqParams, res){
 
 /* Call the setup function on the PhoneNumber object to set up our Voice and Sms endpoints */
 phone.setup(function() {
-  console.log('Phone setup called');
   app.listen(config.port, function(){
-    return console.log('Listening on ' + config.port);
+      return console.log('Listening on ' + config.port);
   });
 
-  return phone.on('incomingCall', function(reqParams, response){
-    return onIncomingCall(reqParams, response);
-  });
-
-  return phone.on('incomingSms', function(reqParams, response){
-    return onIncomingSms(reqParams, response);
-  });
+  phone.on('incomingCall', function(reqParams, response){
+     return onIncomingCall(reqParams, response);
+   });
 });
 
 /* Base route */
 app.get("/", function(req, res){
-  /* Call the setup function on the PhoneNumber object to set up our Voice and Sms endpoints */
-  phone.setup(function() {
-    console.log('Phone setup called');
-    app.listen(config.port, function(){
-      return console.log('Listening on ' + config.port);
-    });
-
-    return phone.on('incomingCall', function(reqParams, response){
-      return onIncomingCall(reqParams, response);
-    });
-
-    return phone.on('incomingSms', function(reqParams, response){
-      return onIncomingSms(reqParams, response);
-    });
-  });
   res.render('index');
 });
 
