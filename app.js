@@ -41,6 +41,7 @@ var onIncomingSms = function(reqParams, res){
 
 /* Call the setup function on the PhoneNumber object to set up our Voice and Sms endpoints */
 phone.setup(function() {
+  console.log('Phone setup called');
   app.listen(config.port, function(){
     return console.log('Listening on ' + config.port);
   });
