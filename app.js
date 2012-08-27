@@ -22,10 +22,15 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var out = "hello", phone = client.getPhoneNumber('+17033489706');
+var out = "hello", phone = client.getPhoneNumber('+17035968908');
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
+  res.send();
+}
+
+var onIncomingSms = function(reqParams, res){
+  res.append(new Twiml.Sms("Thanks for texting!"));
   res.send();
 }
 
@@ -36,7 +41,11 @@ phone.setup(function() {
 
     phone.on('incomingCall', function(reqParams, response){
        return onIncomingCall(reqParams, response);
-     });
+    });
+
+    phone.on('incomingSms', function(reqParams, response){
+    return onIncomingSms(reqParams, response);
+    });
 });
 
 app.get("/", function(req, res){
