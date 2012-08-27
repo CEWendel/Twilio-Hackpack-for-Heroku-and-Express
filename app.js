@@ -57,7 +57,7 @@ app.get("/", function(req, res){
 
 /* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
-  var number; // Set this equal to the number you want to call
+  var number = '+17033891424' // Set this equal to the number you want to call
   if(!number){
     res.send('You need to set a phone number to call in app.js');
   }else{
