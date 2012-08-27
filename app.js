@@ -27,6 +27,7 @@ var TwilioClient = require('heroku-twilio').Client,
 
 /* Set up the PhoneNumber object with our CallerId */
 var phone = client.getPhoneNumber('+17035944090');
+console.log('phone is ' + phone);
 
 /* Create functions to be called when Voice and Sms endpoints are reached */
 var onIncomingCall = function(reqParams, res){
