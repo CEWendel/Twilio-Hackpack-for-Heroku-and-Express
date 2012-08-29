@@ -29,10 +29,12 @@ var onIncomingCall = function(reqParams, res){
   res.send();
 }
 
+/*
 var onIncomingSms = function(reqParams, res){
   res.append(new Twiml.Sms("Thanks for texting!"));
   res.send();
 }
+*/
 
 phone.setup(function() {
     app.listen(config.port, function(){
@@ -40,12 +42,12 @@ phone.setup(function() {
     });
 
     phone.on('incomingCall', function(reqParams, response){
-       return onIncomingCall(reqParams, response);
+      return onIncomingCall(reqParams, response);
     });
 
-    phone.on('incomingSms', function(reqParams, response){
-    return onIncomingSms(reqParams, response);
-    });
+    //phone.on('incomingSms', function(reqParams, response){
+    //  return onIncomingSms(reqParams, response);
+    //});
 });
 
 app.get("/", function(req, res){
