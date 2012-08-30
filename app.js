@@ -39,7 +39,7 @@ var onSms = function(reqParams, res){
 }
 
 /* Setup function uses to setup endpoints for our caller_id */
-phone.setup(function() {
+//phone.setup(function() {
   /*
   app.listen(config.port, function(){
       return console.log('Listening on ' + config.port);
