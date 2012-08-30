@@ -21,9 +21,9 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var phone = client.getPhoneNumber('+14154837997');
+var phone = client.getPhoneNumber('+17035968239');
 
-var onIncomingCall = function(reqParams, res){
+var onCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
   res.send();
 }
@@ -43,7 +43,7 @@ phone.setup(function() {
     });
 
     phone.on('incomingCall', function(reqParams, response){
-      return onIncomingCall(reqParams, response);
+      return onCall(reqParams, response);
     });
 });
 
