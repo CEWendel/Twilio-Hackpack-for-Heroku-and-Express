@@ -52,8 +52,8 @@ phone.setup(function() {
       // As above, reqParams contains the Twilio request parameters.
       // Res is a Twiml.Response object.
 
-      console.log('Received incoming SMS with text: ' + reqParams.Body);
-      console.log('From: ' + reqParams.From);
+      res.append(new Twiml.Sms('Hello, thanks for texting!'));
+      res.send();
   });
 
   // Oh, and what if we get an incoming call?
