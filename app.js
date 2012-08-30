@@ -13,7 +13,7 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.HOST = 'twilionodetestchris.herokuapp.com';
+config.HOST = 'twilionodetestchris2.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Create the Twilio Client and Twiml objects */
@@ -24,7 +24,7 @@ var TwilioClient = require('heroku-twilio').Client,
   });
 
 /* Get the caller_id and create a phone number object with it */
-var phone = client.getPhoneNumber('+17035961723');
+var phone = client.getPhoneNumber('+17037942181');
 
 /* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
