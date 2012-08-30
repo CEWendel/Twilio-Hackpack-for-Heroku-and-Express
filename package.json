@@ -1,4 +1,4 @@
-{
+/*{
   "name": "node-example",
   "version": "0.0.1",
   "dependencies": {
@@ -12,3 +12,10 @@
     "npm": "1.1.x"
   }
 }
+*/
+"dependencies": {
+    "express": "2.5.x",
+    "jade": "0.x.x",
+    "commander": "0.x.x",
+    "twilio": "0.4.0"
+  }
