@@ -13,7 +13,7 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.HOST = 'twilionodedifferent.herokuapp.com';
+config.HOST = 'twilionodedifferent3.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 var TwilioClient = require('heroku-twilio').Client,
@@ -22,7 +22,7 @@ var TwilioClient = require('heroku-twilio').Client,
     "express" : app
   });
 
-var phone = client.getPhoneNumber('+14159685234');
+var phone = client.getPhoneNumber('+14158771614');
 
 var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
