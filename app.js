@@ -24,7 +24,7 @@ var TwilioClient = require('heroku-twilio').Client,
   });
 
 /* Get the caller_id and create a phone number object with it */
-var phone = client.getPhoneNumber('+17032913434');
+var phone = client.getPhoneNumber('+14154837973');
 
 /* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
@@ -40,17 +40,36 @@ var onSms = function(reqParams, res){
 
 /* Setup function uses to setup endpoints for our caller_id */
 phone.setup(function() {
-    app.listen(config.port, function(){
-        return console.log('Listening on ' + config.port);
-    });
+  app.listen(config.port, function(){
+      return console.log('Listening on ' + config.port);
+  });
 
-    phone.on('incomingSms', function(reqParams, response){
-      return onSms(reqParams, response);
-    });
+  // But wait! What if our number receives an incoming SMS?
+  phone.on('incomingSms', function(reqParams, res) {
 
-    phone.on('incomingCall', function(reqParams, response){
-      return onCall(reqParams, response);
-    });
+      // As above, reqParams contains the Twilio request parameters.
+      // Res is a Twiml.Response object.
+
+      console.log('Received incoming SMS with text: ' + reqParams.Body);
+      console.log('From: ' + reqParams.From);
+  });
+
+  // Oh, and what if we get an incoming call?
+  phone.on('incomingCall', function(reqParams, res) {
+
+      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
+      res.send();
+  });
+
+/*  
+  phone.on('incomingSms', function(reqParams, response){
+    return onSms(reqParams, response);
+  });
+
+  phone.on('incomingCall', function(reqParams, response){
+    return onCall(reqParams, response);
+  });
+*/
 });
 
 /* Default route endpoint */
