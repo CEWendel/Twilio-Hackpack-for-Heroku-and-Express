@@ -13,9 +13,11 @@
   }
 }
 */
+{
 "dependencies": {
     "express": "2.5.x",
     "jade": "0.x.x",
     "commander": "0.x.x",
     "twilio": "0.4.0"
   }
+}
