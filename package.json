@@ -1,23 +1,15 @@
-/*{
-  "name": "node-example",
+{
+  "name": "twilio-hackpack-for-heroku-and-express",
   "version": "0.0.1",
   "dependencies": {
     "express": "2.5.x",
     "jade": "0.x.x",
     "commander": "0.x.x",
+    "heroku-twilio": "0.0.x",
     "twilio": "0.4.0"
   },
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
-  }
-}
-*/
-{
-"dependencies": {
-    "express": "2.5.x",
-    "jade": "0.x.x",
-    "commander": "0.x.x",
-    "twilio": "0.4.0"
   }
 }

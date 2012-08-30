@@ -13,7 +13,7 @@ app.configure(function(){
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.HOST = 'twilionodedifferent3.herokuapp.com';
+config.HOST = 'twilionodetestchris.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Create the Twilio Client and Twiml objects */
