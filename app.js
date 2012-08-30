@@ -17,8 +17,8 @@ config.HOST = 'twilionodedifferent3.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Create the Twilio Client and Twiml objects */
-var TwilioClient = require('node-twilio').Client,
-  Twiml = require('node-twilio').Twiml,
+var TwilioClient = require('twilio').Client,
+  Twiml = require('twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
