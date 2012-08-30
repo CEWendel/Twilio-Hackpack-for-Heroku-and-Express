@@ -17,8 +17,8 @@ config.HOST = 'twilionodedifferent3.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
 /* Create the Twilio Client and Twiml objects */
-var TwilioClient = require('heroku-twilio').Client,
-  Twiml = require('heroku-twilio').Twiml,
+var TwilioClient = require('node-twilio').Client,
+  Twiml = require('node-twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
@@ -46,7 +46,7 @@ phone.setup(function() {
   });
   */
 
-  // But wait! What if our number receives an incoming SMS?
+  /*
   phone.on('incomingSms', function(reqParams, res) {
 
       // As above, reqParams contains the Twilio request parameters.
@@ -62,8 +62,7 @@ phone.setup(function() {
       res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
       res.send();
   });
-
-/*  
+  */
   phone.on('incomingSms', function(reqParams, response){
     return onSms(reqParams, response);
   });
@@ -71,7 +70,7 @@ phone.setup(function() {
   phone.on('incomingCall', function(reqParams, response){
     return onCall(reqParams, response);
   });
-*/
+
 });
 
 /* Default route endpoint */
