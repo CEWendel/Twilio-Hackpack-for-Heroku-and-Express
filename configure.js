@@ -139,12 +139,15 @@ Configure.prototype.purchasePhoneNumber = function(purchasedCallback){
 		});
 	}
 
+	var self = this;
 	askToBuyPhoneNumber('Your Caller_Id is not configured. Buy a new phone number? (Your account will be charged $1) [y/n]', 
 		function(output){
 		if(output=='y'){
+			console.log('this.voice_url is ' + self.voice_url);
+			console.log('this.sms_url is' + self.sms_url);
 			params = {
-				VoiceUrl: this.voice_url,
-				SmsUrl: this.sms_url,
+				VoiceUrl: self.voice_url,
+				SmsUrl: self.sms_url,
 				AreaCode: '703'
 			}
 			try{
