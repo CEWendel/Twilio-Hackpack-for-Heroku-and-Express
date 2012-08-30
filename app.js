@@ -9,30 +9,36 @@ app.configure(function(){
   app.set('view engine', 'jade');
 });
 
+/* Set up hash to store our Twilio account info in */
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
 config.HOST = 'twilionodedifferent3.herokuapp.com';
 config.port = process.env.PORT || 5000;
 
+/* Create the Twilio Client and Twiml objects */
 var TwilioClient = require('heroku-twilio').Client,
   Twiml = require('heroku-twilio').Twiml,
   client = new TwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN , config.HOST, {
     "express" : app
   });
 
-var phone = client.getPhoneNumber('+17035968221');
+/* Get the caller_id and create a phone number object with it */
+var phone = client.getPhoneNumber('+17032913434');
 
+/* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
   res.send();
 }
 
+/* Function that is called when caller_id receives an incoming sms */
 var onSms = function(reqParams, res){
   res.append(new Twiml.Sms("Yo yo yo"));
   res.send();
 }
 
+/* Setup function uses to setup endpoints for our caller_id */
 phone.setup(function() {
     app.listen(config.port, function(){
         return console.log('Listening on ' + config.port);
@@ -47,6 +53,7 @@ phone.setup(function() {
     });
 });
 
+/* Default route endpoint */
 app.get("/", function(req, res){
   res.render('index');
 });
