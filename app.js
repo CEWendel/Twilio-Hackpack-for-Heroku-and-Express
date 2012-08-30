@@ -35,9 +35,30 @@ var onIncomingSms = function(reqParams, res){
 }
 */
 
+var onSms = function(reqParams, res){
+  res.append(new Twiml.Sms("Yo yo yo"));
+  res.send();
+}
+
 phone.setup(function() {
     app.listen(config.port, function(){
         return console.log('Listening on ' + config.port);
+    });
+
+    // But wait! What if our number receives an incoming SMS?
+    /*
+    phone.on('incomingSms', function(reqParams, res) {
+
+        // As above, reqParams contains the Twilio request parameters.
+        // Res is a Twiml.Response object.
+
+        console.log('Received incoming SMS with text: ' + reqParams.Body);
+        console.log('From: ' + reqParams.From);
+    });
+    */
+    
+    phone.on('incomingSms', function(reqParams, response){
+      return onSms(reqParams, response);
     });
 
     phone.on('incomingCall', function(reqParams, response){
