@@ -9,7 +9,6 @@ app.configure(function(){
   app.set('view engine', 'jade');
 });
 
-
 config = {};
 config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
 config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
@@ -28,14 +27,8 @@ var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
   res.send();
 }
-/*
-var onIncomingSms = function(reqParams, res){
-  res.append(new Twiml.Sms("Thanks for texting!"));
-  res.send();
-}
-*/
 
-var onSms = function(reqParams, res){
+var onIncomingSms = function(reqParams, res){
   res.append(new Twiml.Sms("Yo yo yo"));
   res.send();
 }
@@ -45,29 +38,13 @@ phone.setup(function() {
         return console.log('Listening on ' + config.port);
     });
 
-    // But wait! What if our number receives an incoming SMS?
-    /*
-    phone.on('incomingSms', function(reqParams, res) {
-
-        // As above, reqParams contains the Twilio request parameters.
-        // Res is a Twiml.Response object.
-
-        console.log('Received incoming SMS with text: ' + reqParams.Body);
-        console.log('From: ' + reqParams.From);
-    });
-    */
-    
     phone.on('incomingSms', function(reqParams, response){
-      return onSms(reqParams, response);
+      return onIncomingSms(reqParams, response);
     });
 
     phone.on('incomingCall', function(reqParams, response){
       return onIncomingCall(reqParams, response);
     });
-
-    //phone.on('incomingSms', function(reqParams, response){
-    //  return onIncomingSms(reqParams, response);
-    //});
 });
 
 app.get("/", function(req, res){
