@@ -28,7 +28,6 @@ var onIncomingCall = function(reqParams, res){
   res.append(new Twiml.Say("Hello"));
   res.send();
 }
-
 /*
 var onIncomingSms = function(reqParams, res){
   res.append(new Twiml.Sms("Thanks for texting!"));
