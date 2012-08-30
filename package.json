@@ -6,7 +6,7 @@
     "jade": "0.x.x",
     "commander": "0.x.x",
     "heroku-twilio": "0.0.x",
-    "twilio": "x.x.x"
+    "twilio": "0.4.0"
   },
   "engines": {
     "node": "0.8.x",
