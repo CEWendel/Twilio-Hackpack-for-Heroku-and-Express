@@ -28,7 +28,7 @@ var onIncomingCall = function(reqParams, res){
   res.send();
 }
 
-var onIncomingSms = function(reqParams, res){
+var onSms = function(reqParams, res){
   res.append(new Twiml.Sms("Yo yo yo"));
   res.send();
 }
@@ -39,7 +39,7 @@ phone.setup(function() {
     });
 
     phone.on('incomingSms', function(reqParams, response){
-      return onIncomingSms(reqParams, response);
+      return onSms(reqParams, response);
     });
 
     phone.on('incomingCall', function(reqParams, response){
