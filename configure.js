@@ -24,8 +24,8 @@ function Configure(){
 	this.auth_token = process.env.TWILIO_AUTH_TOKEN;
 	this.app_sid = process.env.TWILIO_APP_SID;
 	this.phone_number = process.env.TWILIO_CALLER_ID;
-	this.voice_url = '/voice';
-	this.sms_url = '/sms';
+	this.voice_url = '/autoprovision/1';
+	this.sms_url = '/autoprovision/0';
 	this.host_; 
 	this.client;
 }
@@ -143,6 +143,8 @@ Configure.prototype.purchasePhoneNumber = function(purchasedCallback){
 		function(output){
 		if(output=='y'){
 			params = {
+				VoiceUrl: this.voice_url,
+				SmsUrl: this.sms_url,
 				AreaCode: '703'
 			}
 			try{
