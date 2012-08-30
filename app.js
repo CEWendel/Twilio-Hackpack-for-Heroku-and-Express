@@ -24,7 +24,7 @@ var TwilioClient = require('heroku-twilio').Client,
   });
 
 /* Get the caller_id and create a phone number object with it */
-var phone = client.getPhoneNumber('+14154837973');
+var phone = client.getPhoneNumber('+17035961723');
 
 /* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
@@ -40,9 +40,11 @@ var onSms = function(reqParams, res){
 
 /* Setup function uses to setup endpoints for our caller_id */
 phone.setup(function() {
+  /*
   app.listen(config.port, function(){
       return console.log('Listening on ' + config.port);
   });
+  */
 
   // But wait! What if our number receives an incoming SMS?
   phone.on('incomingSms', function(reqParams, res) {
@@ -114,3 +116,5 @@ app.all("/voice", function(req,res){
   r.append(new Twiml.Say('Hello! This is your voice endpoint for your Twilio app'));
   res.send(r.toString());
 });
+
+app.listen(process.env.PORT || config.port);
