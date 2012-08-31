@@ -11,9 +11,10 @@ app.configure(function(){
 
 /* Set up hash to store our Twilio account info in */
 config = {};
-config.TWILIO_ACCOUNT_SID = 'ACebc0f6959d2d4c96ab4b51ff56bab89f';
-config.TWILIO_AUTH_TOKEN = 'ee115a864487164c053253f54282a4d6';
-config.HOST = 'twiliotesting1.herokuapp.com';
+config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+config.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+config.HOST = process.env.TWILIO_HOST;
+config.caller_id = process.env.TWILIO_CALLER_ID;
 config.port = process.env.PORT || 5000;
 
 /* Create the Twilio Client and Twiml objects */
@@ -24,7 +25,7 @@ var TwilioClient = require('heroku-twilio').Client,
   });
 
 /* Get the caller_id and create a phone number object with it */
-var phone = client.getPhoneNumber('+17035944117');
+var phone = client.getPhoneNumber(config.caller_id);
 
 /* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
@@ -40,29 +41,6 @@ var onSms = function(reqParams, res){
 
 /* Setup function uses to setup endpoints for our caller_id */
 phone.setup(function() {
-  /*
-  app.listen(config.port, function(){
-      return console.log('Listening on ' + config.port);
-  });
-  */
-
-  /*
-  phone.on('incomingSms', function(reqParams, res) {
-
-      // As above, reqParams contains the Twilio request parameters.
-      // Res is a Twiml.Response object.
-
-      res.append(new Twiml.Sms('Hello, thanks for texting!'));
-      res.send();
-  });
-
-  // Oh, and what if we get an incoming call?
-  phone.on('incomingCall', function(reqParams, res) {
-
-      res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-      res.send();
-  });
-  */
   phone.on('incomingSms', function(reqParams, response){
     return onSms(reqParams, response);
   });
@@ -70,7 +48,6 @@ phone.setup(function() {
   phone.on('incomingCall', function(reqParams, response){
     return onCall(reqParams, response);
   });
-
 });
 
 /* Default route endpoint */
@@ -80,7 +57,7 @@ app.get("/", function(req, res){
 
 /* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
-  var number = '+17033891424' // Set this equal to the number you want to call
+  var number = '+17033891424'; // Set this equal to the number you want to call
   if(!number){
     res.send('You need to set a phone number to call in app.js');
   }else{
@@ -99,7 +76,7 @@ app.get("/makeCall", function(req, res) {
 
 /* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
 app.get("/sendSms", function(req, res){
-  var number = '+17033891424' // Set this equal to the number you want to text
+  var number = '+17033891424'; // Set this equal to the number you want to text
   if(!number){
     res.send('You need to set a phone number to call in app.js');
   }else{

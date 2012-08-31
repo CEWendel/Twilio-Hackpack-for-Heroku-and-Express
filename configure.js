@@ -26,6 +26,7 @@ function Configure(){
 	this.phone_number = process.env.TWILIO_CALLER_ID;
 	this.voice_url = '/autoprovision/1';
 	this.sms_url = '/autoprovision/0';
+	this.client_voice_url = '/voice'
 	this.host_; 
 	this.client;
 }
@@ -229,8 +230,7 @@ Configure.prototype.createNewTwimlApp = function(createdCallback){
 			console.log('Creating new application...');
 			params = {
 				FriendlyName: 'Hackpack for Heroku and Express',
-				VoiceUrl: this.voice_url,
-				SmsUrl: this.sms_url
+				VoiceUrl: this.client_voice_url
 			}
 			try{
 				client.createApplication(params, function(data){
