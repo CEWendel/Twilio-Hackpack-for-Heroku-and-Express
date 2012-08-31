@@ -17,7 +17,7 @@ to easily set up your app and environments
 Endpoints in the Node hackpack don't work exactly like the other hackpacks...so pay attention!
 ###Endpoints
 
-#### Twilio Application Endpoints (Uses for Twilio Client)
+#### Twilio Application Endpoints (Used for Twilio Client)
 Voice endpoint:
 ```javascript
 app.all("/voice", function(req,res){
