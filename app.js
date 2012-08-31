@@ -9,6 +9,7 @@ app.configure(function(){
   app.set('view engine', 'jade');
 });
 
+//CHANGEEE
 /* Set up hash to store our Twilio account info in */
 config = {};
 config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
