@@ -68,6 +68,12 @@ Configure.prototype.start = function() {
 		this.sms_url = this.host_ + this.sms_url;
 		console.info('Sms url is now ' + this.sms_url);
 	}
+
+	// If 'http://' isn't found in the client voice url, append the client_voice_url to the host name
+	if(this.client_voice_url.indexOf('http://') == -1){
+		this.client_voice_url = this.host_ + this.client_voice_url;
+		console.info('Client voice url is now ' + this.client_voice_url);
+	}
 		
 	var self = this;
 	this.configureCallerId(function(number){
@@ -77,8 +83,8 @@ Configure.prototype.start = function() {
 			throw new Error('There was a problem getting the Caller_Id');
 		}
 
-		self.configureApp(function(app){
-			self.app_sid = app.sid;
+		this.configureApp(function(app){
+		self.app_sid = app.sid;
 
 			if(!self.app_sid){
 				throw new Error('There was a probem setting up the app')
@@ -236,7 +242,6 @@ Configure.prototype.createNewTwimlApp = function(createdCallback){
 			}
 			try{
 				client.createApplication(params, function(data){
-					console.log('Created the application');
 					createdCallback(data);
 				});
 			}catch(e){
