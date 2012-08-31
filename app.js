@@ -58,7 +58,7 @@ app.get("/", function(req, res){
   res.render('index');
 });
 
-/* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
+/* Endpoint to make a call using the Twilio Rest Client */
 app.get("/makeCall", function(req, res) {
   var number; // Set this equal to the number you want to call
   if(!number){
@@ -77,7 +77,7 @@ app.get("/makeCall", function(req, res) {
   }
 });
 
-/* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
+/* Endpoint to send an sms using the Twilio Rest Client */
 app.get("/sendSms", function(req, res){
   var number; // Set this equal to the number you want to text
   if(!number){
