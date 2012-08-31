@@ -96,6 +96,7 @@ Configure.prototype.start = function() {
 }
 
 Configure.prototype.printOutLocalEnvironmentVariableCommands = function(){
+	this.host_ = this.host_.replace('http://', '');
 	console.log('Please copy and paste these into your shell to test locally: \n' + 
 		'export TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + '\n' + 
 		'export TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN + '\n' +
@@ -105,6 +106,7 @@ Configure.prototype.printOutLocalEnvironmentVariableCommands = function(){
 }
 
 Configure.prototype.setHerokuEnvironmentVariables = function(callback){
+	this.host_ = this.host_.replace('http://', '');
 	exec('heroku config:add TWILIO_ACCOUNT_SID=' + process.env.TWILIO_ACCOUNT_SID + 
 		' TWILIO_AUTH_TOKEN=' + process.env.TWILIO_AUTH_TOKEN +
 		' TWILIO_CALLER_ID=' + this.phone_number +
@@ -144,8 +146,6 @@ Configure.prototype.purchasePhoneNumber = function(purchasedCallback){
 	askToBuyPhoneNumber('Your Caller_Id is not configured. Buy a new phone number? (Your account will be charged $1) [y/n]', 
 		function(output){
 		if(output=='y'){
-			console.log('this.voice_url is ' + self.voice_url);
-			console.log('this.sms_url is' + self.sms_url);
 			params = {
 				VoiceUrl: self.voice_url,
 				SmsUrl: self.sms_url,
@@ -193,7 +193,7 @@ Configure.prototype.retrievePhoneNumber = function(number, callback){
 	var number;
 	try{
 		params = {
-			PhoneNumber : number
+			PhoneNumber: number
 		}
 		this.client.getIncomingNumbers(params, function(body){
 			number = body.incoming_phone_numbers[0];
@@ -225,12 +225,14 @@ Configure.prototype.createNewTwimlApp = function(createdCallback){
 			}
 		});
 	}
+
+	var self = this;
 	askToCreateTwimlApp('Your APP_SID is not configured. Create a new one? [y/n]', function(output){
 		if(output=='y'){
 			console.log('Creating new application...');
 			params = {
 				FriendlyName: 'Hackpack for Heroku and Express',
-				VoiceUrl: this.client_voice_url
+				VoiceUrl: self.client_voice_url
 			}
 			try{
 				client.createApplication(params, function(data){
