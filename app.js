@@ -60,14 +60,14 @@ app.get("/", function(req, res){
 
 /* Endpoint to make a call using the Twilio Rest Client. By default calls a previously configured number */
 app.get("/makeCall", function(req, res) {
-  var number = '+17033891424'; // Set this equal to the number you want to call
+  var number; // Set this equal to the number you want to call
   if(!number){
     res.send('You need to set a phone number to call in app.js');
   }else{
     phone.makeCall(number, null, function(call){
       res.send('Calling ' + number);
       call.on('answered', function(request, response){
-        response.append(new Twiml.Say("Hello"));
+        response.append(new Twiml.Say("Hello! This is your new twilio phone number calling you!"));
         response.send();
       });
       call.on('ended', function(req, resp){
@@ -79,11 +79,11 @@ app.get("/makeCall", function(req, res) {
 
 /* Endpoint to send an sms using the Twilio Rest Client. By default texts a previously configured number */
 app.get("/sendSms", function(req, res){
-  var number = '+17033891424'; // Set this equal to the number you want to text
+  var number; // Set this equal to the number you want to text
   if(!number){
     res.send('You need to set a phone number to call in app.js');
   }else{
-    phone.sendSms(number, 'Jeah!', null, function(sms){
+    phone.sendSms(number, 'Hello, this is your new twilio phone number texting you!', null, function(sms){
       res.send('Sending sms to ' + number);
     });
   }

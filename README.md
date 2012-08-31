@@ -98,6 +98,7 @@ Step-by-step on how to deploy, configure, and develop using this app
 
 3) Deploy to Heroku
 <pre> git push heroku master </pre>
+Don't open the app until after you configure your Twilio info!
 
 ###Configuration
 There are a couple ways you can configure your app
