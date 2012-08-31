@@ -83,7 +83,7 @@ Configure.prototype.start = function() {
 			throw new Error('There was a problem getting the Caller_Id');
 		}
 
-		this.configureApp(function(app){
+		self.configureApp(function(app){
 		self.app_sid = app.sid;
 
 			if(!self.app_sid){
