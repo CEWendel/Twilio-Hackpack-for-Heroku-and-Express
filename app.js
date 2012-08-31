@@ -32,13 +32,13 @@ var phone = client.getPhoneNumber(config.caller_id);
 
 /* Function that is called when caller_id receives an incoming call */
 var onCall = function(reqParams, res){
-  res.append(new Twiml.Say("Hello"));
+  res.append(new Twiml.Say("Hello, thanks for calling your new Twilio phone number"));
   res.send();
 }
 
 /* Function that is called when caller_id receives an incoming sms */
 var onSms = function(reqParams, res){
-  res.append(new Twiml.Sms("Yo yo yo"));
+  res.append(new Twiml.Sms("Hello, thanks for texting your new Twilio phone number"));
   res.send();
 }
 
@@ -65,7 +65,7 @@ app.get("/makeCall", function(req, res) {
     res.send('You need to set a phone number to call in app.js');
   }else{
     phone.makeCall(number, null, function(call){
-      res.send('Made call');
+      res.send('Calling ' + number);
       call.on('answered', function(request, response){
         response.append(new Twiml.Say("Hello"));
         response.send();
@@ -84,7 +84,7 @@ app.get("/sendSms", function(req, res){
     res.send('You need to set a phone number to call in app.js');
   }else{
     phone.sendSms(number, 'Jeah!', null, function(sms){
-      res.send('Sent sms to ' + number);
+      res.send('Sending sms to ' + number);
     });
   }
 });

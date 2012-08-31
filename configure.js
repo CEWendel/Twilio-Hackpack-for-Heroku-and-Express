@@ -26,7 +26,7 @@ function Configure(){
 	this.phone_number = process.env.TWILIO_CALLER_ID;
 	this.voice_url = '/autoprovision/1';
 	this.sms_url = '/autoprovision/0';
-	this.client_voice_url = '/voice'
+	this.client_voice_url = '/voice';
 	this.host_; 
 	this.client;
 }
