@@ -9,7 +9,6 @@ app.configure(function(){
   app.set('view engine', 'jade');
 });
 
-//CHANGEEE
 /* Set up hash to store our Twilio account info in */
 config = {};
 config.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
@@ -19,7 +18,6 @@ config.caller_id = process.env.TWILIO_CALLER_ID;
 config.port = process.env.PORT || 5000;
 
 
-///MONKAYYY
 /* Create the Twilio Client and Twiml objects */
 var TwilioClient = require('heroku-twilio').Client,
   Twiml = require('heroku-twilio').Twiml,
