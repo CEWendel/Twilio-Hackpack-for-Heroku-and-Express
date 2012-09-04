@@ -110,7 +110,7 @@ The hackpack comes with a script to configure your Twilio app for you, meaning i
 <pre> npm install </pre>
 
 2) Run configure script
-<pre> node configure --account_sid ACXXXXXX --auth_token YYYYYY </pre>
+<pre> node configure.js --account_sid ACXXXXXX --auth_token YYYYYY </pre>
 
 3) For local development, copy and paste the commands given to you from the configure script into your shell.
 <pre>
