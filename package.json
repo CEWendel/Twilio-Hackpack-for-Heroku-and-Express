@@ -5,8 +5,7 @@
     "express": "2.5.x",
     "jade": "0.x.x",
     "commander": "0.x.x",
-    "heroku-twilio": "0.0.x",
-    "twilio": "0.4.0"
+    "heroku-twilio": "0.0.x"
   },
   "engines": {
     "node": "0.8.x",
